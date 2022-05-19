@@ -30,7 +30,7 @@ export default function Header() {
         <Nav className="me-auto">
           {links.map(([label, to]) =>
             <Link
-              key={to} to={to}
+              style={{color:"white"}} key={to} to={to}
               className={`nav-link ${to === route ? 'active' : ''}`}
             >{label}</Link>
           )}
