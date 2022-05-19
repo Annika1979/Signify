@@ -1,12 +1,12 @@
-import { useStates } from './utilities/states';
+import { useStates } from '../utilities/states';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { scrollRestore } from './utilities/scrollBehavior';
-import CategorySelect from './CategorySelect';
-import { sweFormat } from './utilities/currencyFormatter';
-import { missingImage } from './utilities/handleMissingImage';
+import { scrollRestore } from '../utilities/scrollBehavior';
+import CategorySelect from '../CategorySelect';
+import { sweFormat } from '../utilities/currencyFormatter';
+import { missingImage } from '../utilities/handleMissingImage';
 
-export default function Hangandeskylt() {
+export default function Vaggskyltar() {
 
   scrollRestore();
 

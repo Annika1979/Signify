@@ -10,7 +10,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Flaggskylt from "./components/Flaggskylt";
 import Hangandeskylt from "./components/Hangandeskylt";
-import Vaggskyltar from "./components/Vaggskyltrar";
+import Vaggskyltar from "./components/Vaggskyltar";
 import ProductDetail from "./ProductDetail";
 import ProductEdit from "./ProductEdit";
 import Kundvagn from "./components/Kundvagn";
