@@ -43,9 +43,9 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Kundvagn" element={<Kundvagn />} />
         <Route path="/ProduktLista" element={<ProduktLista />} />
-        
+
         <Route path="/product-detail/:id" element={<ProductDetail />} />
-        <Route path="/product-edit/:id" element={<ProductEdit />} />
+        <Route path="/backoffice/:id" element={<ProductEdit />} />
       </Routes>
       <Footer />
     </Router>
