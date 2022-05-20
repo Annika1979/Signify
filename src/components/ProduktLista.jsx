@@ -33,7 +33,7 @@ export default function ProduktLista() {
         <Card>
           <Col xxl="12">
             <h3>{name}</h3>
-            <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 250, height: 150, objectFit: 'cover' }} src={`/images/products/${id}.jpg`} />
+            <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 300, height: "auto", objectFit: 'cover' }} src={`/images/products/${id}.jpg`} />
             <p>{description}</p>
           </Col>
           <Col xxl="12">
