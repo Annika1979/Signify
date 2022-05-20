@@ -8,10 +8,11 @@ import "./utilities/scrollBehavior";
 import ProductDetail from "./ProductDetail";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import ProduktLista from "./components/ProduktLista";
+import ProduktLista from "./components/ProduktLista"
 import ProductEdit from "./ProductEdit";
 import Kundvagn from "./components/Kundvagn";
 import Footer from "./components/Footer";
+
 
 // Create classes used for fetching from the REST-api
 const { Product, Categorie: Category } = factory;
