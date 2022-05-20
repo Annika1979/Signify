@@ -5,6 +5,7 @@ import { scrollRestore } from '../utilities/scrollBehavior';
 import CategorySelect from '../CategorySelect';
 import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
+import FilterPrice from '../filterPrice';
 
 export default function ProduktLista() {
 
@@ -18,9 +19,10 @@ export default function ProduktLista() {
   }
 
   return <Container className="productList">
-    <Row><Col><h1>Hängandeskyltar</h1></Col></Row>
+    <Row><Col><h3>Välj Kategori</h3></Col></Row>
     <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
     {s.products.filter(product =>
+     
       s.chosenCategoryId === 0 /*all*/
       || s.chosenCategoryId === product.categoryId
     ).map(({ id, name, description, price }) =>
