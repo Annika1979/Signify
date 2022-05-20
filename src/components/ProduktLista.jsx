@@ -6,7 +6,7 @@ import CategorySelect from '../CategorySelect';
 import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
 
-export default function Hangandeskylt() {
+export default function ProduktLista() {
 
   scrollRestore();
 
