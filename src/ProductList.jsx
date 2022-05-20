@@ -42,7 +42,7 @@ export default function ProductList() {
                 <img
                   onError={(event) => missingImage(event, name)}
                   className="float-end ms-3"
-                  style={{ width: 250, height: 150, objectFit: "cover" }}
+                  
                   src={`/images/products/${id}.jpg`}
                 />
                 <p>{description}</p>
