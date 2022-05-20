@@ -19,6 +19,9 @@ export default function ProduktLista() {
   }
 
   return <Container className="productList">
+    <Row className="mb-2"><Col><FilterPrice showAllPrice bindTo={[s, 'chosenCategoryId']} /></Col></Row>
+    
+
     <Row><Col><h3>Välj Kategori</h3></Col></Row>
     <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
     {s.products.filter(product =>
