@@ -1,13 +1,13 @@
 import { useStates } from './utilities/states';
 
-export default function CategorySelector(props) {
+export default function linkCategory(props) {
 
   let s = useStates('main');
   let { bindTo, showAllOption } = props;
   let [bindObject, bindProperty] = bindTo;
 
   return <select {...bindObject.bind(bindProperty)}>
-    
+    {showAllOption && <option key={0} value={0}>all</option>}
     {s.categories.map(({ name, id }) =>
       <option key={id} value={id}>{name}</option>
     )}
@@ -15,5 +15,3 @@ export default function CategorySelector(props) {
 
 
 }
-
-
