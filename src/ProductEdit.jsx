@@ -98,13 +98,14 @@ export default function ProductDetail() {
       >
         Spara
       </button>
-      <button
+      <td
         type="button"
         onClick={save}
-        className="my-4 btn btn-primary float-end"
+        className="float-end"
+        style={{ cursor: "pointer", width: 1 }}
       >
-        Radera
-      </button>
+        🗑️
+      </td>
     </Container>
   );
 }
