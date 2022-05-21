@@ -7,18 +7,26 @@ import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
 import FilterPrice from '../filterPrice';
 
+
 export default function ProduktLista() {
 
   scrollRestore();
 
   let s = useStates('main');
   let navigate = useNavigate();
+ 
+  
+
+
+
 
   function showDetail(id) {
     navigate(`/product-detail/${id}`);
   }
 
   return <Container className="productList">
+    
+    
     <Row><Col><h3>Välj Kategori</h3></Col></Row>
     <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
     {s.products.filter(product =>

@@ -18,8 +18,15 @@ export default function backOffice() {
     navigate(`/backoffice/${id}`);
   }
 
+  
   return <Container className="productList">
+      <Link to={`/backoffice/lagg-till`}>
+      <button type="button" className="my-3 btn btn-primary float-end">
+       Lägg till
+      </button>
+    </Link>
     <Row><Col><h3>Välj Kategori</h3></Col></Row>
+   
     <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
     {s.products.filter(product =>
      
@@ -41,6 +48,7 @@ export default function backOffice() {
               Ändra
             </button>
           </Link>
+         
         </Card>
       </Row>
     )}

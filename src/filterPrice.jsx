@@ -5,15 +5,19 @@ export default function FilterPrice(props) {
   let s = useStates('main');
   let { bindTo,showAllPrice } = props;
   let [bindObject, bindProperty] = bindTo;
+  
 
   return <select {...bindObject.bind(bindProperty)}>
     
-    {showAllPrice &&<option key={0} value={0}>Alla Produkter</option>}
-    
-    {s.categories.map(({ price, id }) =>
-      <option key={id} value={id}>{price}</option>
-    )}
-  </select>
+  {showAllPrice &&<option key={0} value={0}>Alla Produkter</option>}
+  
+  {s.products.map(({ name, id }) =>
+    <option key={id} value={id}> {name} </option>
+   
+  )}
+</select>
 
 
+  
+   
 }
