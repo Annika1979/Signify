@@ -25,7 +25,7 @@ export default function ProductList() {
       </Row>
       <Row >
         <Col>
-          <CategorySelect showAllOption bindTo={[s, "chosenCategoryId"]} />
+          <CategorySelect showAllPrice bindTo={[s, "products"]} />
         </Col>
       </Row>
       {s.products
