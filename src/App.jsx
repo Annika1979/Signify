@@ -23,19 +23,28 @@ export default function App() {
     categories: [],
     chosenCategoryId: 0,
     cartContents: [],
+    
+    
   });
+ 
+ 
 
+
+ 
   useEffect(() => {
     (async () => {
       // get the categories from the db
       s.categories = await Category.find();
       // get the products from the db
       s.products = await Product.find();
+      
+
       // initilize the shopping cart
       // (this provides local storage of cartContents)
       init(s, "cartContents");
     })();
   }, []);
+ 
 
   return s.products.length === 0 ? null : (
     <Router>
