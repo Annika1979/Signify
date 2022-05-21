@@ -21,8 +21,26 @@ export default function ProductDetail() {
     navigate(`/backoffice/`);
     
   }
+
+  async function Tabort(){
+
+    await product.Tabort();
+    
+    // Navigate to detail page
+    
+    navigate(`/backoffice/`);
+
+  }
+
+  // Behöver uppdatera sidan efter att en produkt tagits bort. Tillfälligt lagt till en nödlösning med window reload.
+
+  async function find(){
+    await product.find();
+  }
    function routeBack(){
+    
     navigate('/backoffice')
+    
    }
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
@@ -108,14 +126,14 @@ export default function ProductDetail() {
       >
         Spara
       </button>
-      <td
+      <button
         type="button"
-        onClick={save}
-        className="float-end"
-        style={{ cursor: "pointer", width: 1 }}
+        onClick={()=>Tabort()}
+        className="my-4 btn btn-primary float-end"
       >
-        🗑️
-      </td>
+        Delete
+      </button>
+     
     </Container>
   );
 }

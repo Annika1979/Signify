@@ -23,12 +23,12 @@ export default function Header() {
 
   return <Navbar fixed="top" expand="lg" className="navbarColor">
     <Container>
-    <Navbar.Brand>
+    <Navbar.Brand  >
             <img src={Sign} alt="logo" />
           </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
+        <Nav style={{marginLeft:"250px"}} className="me-auto">
         {links.map(([label, to]) =>
             <Link
             style={{color:"white"}} key={to} to={to}
