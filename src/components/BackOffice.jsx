@@ -21,11 +21,11 @@ export default function backOffice() {
   
   return <Container className="productList">
       <Link to={`/backoffice/lagg-till`}>
-      <button type="button" className="my-3 btn btn-primary float-end">
+      <button style={{ backgroundColor:"black", borderRadius:"10px", border: "none", color:"white" }} type="button" className="my-3 btn btn-primary float-end">
        Lägg till
       </button>
     </Link>
-    <Row><Col><h3>Välj Kategori</h3></Col></Row>
+    <Row><Col><h3 style={{color:"white"}}>Välj Kategori</h3></Col></Row>
    
     <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
     {s.products.filter(product =>
@@ -44,7 +44,7 @@ export default function backOffice() {
             <p><b>Price:</b> {sweFormat(price)}</p>
           </Col>
           <Link to={`/backoffice/${id}`}>
-            <button type="button" className="my-4 btn btn-primary float-end">
+            <button style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white" }} type="button" className="my-4 btn float-end">
               Ändra
             </button>
           </Link>
