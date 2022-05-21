@@ -46,7 +46,7 @@ export default function ProductDetail() {
   // console.log("navigator.onLine", navigator.onLine);
 
   return !navigator.onLine ? (
-    <Container>
+    <Container >
       {/* Offline */}
       <Row>
         <Col>
@@ -55,7 +55,7 @@ export default function ProductDetail() {
       </Row>
     </Container>
   ) : (
-    <Container>
+    <Container style={{backgroundColor:"rgba(255, 204, 255,0.5 )", borderRadius:"10px"}}>
       {/* Online */}
       <Row>
         <Col>
@@ -105,9 +105,9 @@ export default function ProductDetail() {
       </Row>
       <Row className="mt-4">
         <Col>
-          <label>
+          <label className="mb-5">
             Kategori:&nbsp;
-            <CategorySelect bindTo={[product, "categoryId"]} />
+            <CategorySelect  bindTo={[product, "categoryId"]} />
           </label>
         </Col>
       </Row>
