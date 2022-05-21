@@ -23,9 +23,9 @@ export default function ProductList() {
           <h1>Products</h1>
         </Col>
       </Row>
-      <Row className="mb-3">
+      <Row >
         <Col>
-          <CategorySelect showAllOption bindTo={[s, "chosenCategoryId"]} />
+          <CategorySelect showAllPrice bindTo={[s, "products"]} />
         </Col>
       </Row>
       {s.products
@@ -42,7 +42,7 @@ export default function ProductList() {
                 <img
                   onError={(event) => missingImage(event, name)}
                   className="float-end ms-3"
-                  style={{ width: 250, height: 150, objectFit: "cover" }}
+                  
                   src={`/images/products/${id}.jpg`}
                 />
                 <p>{description}</p>

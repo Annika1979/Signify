@@ -5,7 +5,6 @@ import { scrollRestore } from "../utilities/scrollBehavior";
 import CategorySelect from "../CategorySelect";
 import { sweFormat } from "../utilities/currencyFormatter";
 import { missingImage } from "../utilities/handleMissingImage";
-import FilterPrice from "../filterPrice";
 
 export default function ProduktLista() {
   scrollRestore();
@@ -43,14 +42,14 @@ export default function ProduktLista() {
                 <img
                   onError={(event) => missingImage(event, name)}
                   className="float-end ms-3"
-                  style={{ width: 250, height: 150, objectFit: "cover" }}
+                  style={{ width: 300, height: "auto", objectFit: "cover" }}
                   src={`/images/products/${id}.jpg`}
                 />
                 <p>{description}</p>
               </Col>
               <Col xxl="12">
                 <p>
-                  <b>Pris:</b> {sweFormat(price)}
+                  <b>Price:</b> {sweFormat(price)}
                 </p>
               </Col>
             </Card>

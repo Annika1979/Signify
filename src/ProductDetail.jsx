@@ -39,11 +39,11 @@ export default function ProductDetail() {
     // Add the product to the cart
     add(product, localState.buyQuantity);
     // Show the cart
-    navigate("/shopping-cart");
+    navigate("/Kundvagn");
   }
 
   return (
-    <Container className="productList">
+    <Container style={{ backgroundColor:"white", borderRadius:"10px" }}className="productList">
       <Row>
         <Col>
           <Link to={`/ProduktLista`}>
@@ -82,11 +82,7 @@ export default function ProductDetail() {
       </Row>
       <Row>
         <Col>
-          <Link to={`/backoffice/${id}`}>
-            <button type="button" className="my-4 btn btn-primary float-end">
-              Uppdatera
-            </button>
-          </Link>
+         
         </Col>
       </Row>
       <Row>

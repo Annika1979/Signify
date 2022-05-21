@@ -37,6 +37,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
         WHERE id = $id
       `, true);
     });
+   
 
     if (db.views.includes(name)) {
       continue;
