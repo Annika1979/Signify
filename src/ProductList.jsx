@@ -23,7 +23,7 @@ export default function ProductList() {
           <h1>Products</h1>
         </Col>
       </Row>
-      <Row className="mb-3">
+      <Row >
         <Col>
           <CategorySelect showAllPrice bindTo={[s, "products"]} />
         </Col>
