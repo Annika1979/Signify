@@ -1,12 +1,13 @@
 import { useStates } from '../utilities/states';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { scrollRestore } from '../utilities/scrollBehavior';
 import CategorySelect from '../CategorySelect';
 import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
 
-export default function Hangandeskylt() {
+
+export default function backOffice() {
 
   scrollRestore();
 
@@ -14,13 +15,21 @@ export default function Hangandeskylt() {
   let navigate = useNavigate();
 
   function showDetail(id) {
-    navigate(`/product-detail/${id}`);
+    navigate(`/backoffice/${id}`);
   }
 
+  
   return <Container className="productList">
-    <Row><Col><h1>Hängandeskyltar</h1></Col></Row>
+      <Link to={`/backoffice/lagg-till`}>
+      <button type="button" className="my-3 btn btn-primary float-end">
+       Lägg till
+      </button>
+    </Link>
+    <Row><Col><h3>Välj Kategori</h3></Col></Row>
+   
     <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
     {s.products.filter(product =>
+     
       s.chosenCategoryId === 0 /*all*/
       || s.chosenCategoryId === product.categoryId
     ).map(({ id, name, description, price }) =>
@@ -28,12 +37,18 @@ export default function Hangandeskylt() {
         <Card>
           <Col xxl="12">
             <h3>{name}</h3>
-            <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 250, height: 150, objectFit: 'cover' }} src={`/images/products/${id}.jpg`} />
+            <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 300, height: "auto", objectFit: 'cover' }} src={`/images/products/${id}.jpg`} />
             <p>{description}</p>
           </Col>
           <Col xxl="12">
             <p><b>Price:</b> {sweFormat(price)}</p>
           </Col>
+          <Link to={`/backoffice/${id}`}>
+            <button type="button" className="my-4 btn btn-primary float-end">
+              Ändra
+            </button>
+          </Link>
+         
         </Card>
       </Row>
     )}

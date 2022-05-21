@@ -5,22 +5,32 @@ import { scrollRestore } from '../utilities/scrollBehavior';
 import CategorySelect from '../CategorySelect';
 import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
+import FilterPrice from '../filterPrice';
 
-export default function Vaggskyltar() {
+
+export default function ProduktLista() {
 
   scrollRestore();
 
   let s = useStates('main');
   let navigate = useNavigate();
+ 
+  
+
+
+
 
   function showDetail(id) {
     navigate(`/product-detail/${id}`);
   }
 
   return <Container className="productList">
-    <Row><Col><h1>Väggskyltar</h1></Col></Row>
+    
+    
+    <Row><Col><h3>Välj Kategori</h3></Col></Row>
     <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
     {s.products.filter(product =>
+     
       s.chosenCategoryId === 0 /*all*/
       || s.chosenCategoryId === product.categoryId
     ).map(({ id, name, description, price }) =>
@@ -28,7 +38,7 @@ export default function Vaggskyltar() {
         <Card>
           <Col xxl="12">
             <h3>{name}</h3>
-            <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 250, height: 150, objectFit: 'cover' }} src={`/images/products/${id}.jpg`} />
+            <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 300, height: "auto", objectFit: 'cover' }} src={`/images/products/${id}.jpg`} />
             <p>{description}</p>
           </Col>
           <Col xxl="12">
