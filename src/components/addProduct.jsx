@@ -1,18 +1,17 @@
-import { useStates } from "./utilities/states";
+;
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import CategorySelect from "./CategorySelect";
+import CategorySelect from "../CategorySelect";
 
-export default function ProductDetail() {
-  let s = useStates("main");
-  let { id } = useParams();
+export default function AddProduct() {
+   
+   
+  
   let navigate = useNavigate();
 
-  let product = s.products.find((x) => x.id === +id);
-  if (!product) {
-    return null;
-  }
-  let { name, description, price } = product;
+  
+  
+  
 
   async function save() {
     // Save to db
@@ -29,36 +28,14 @@ export default function ProductDetail() {
 
   return !navigator.onLine ? (
     <Container>
-      {/* Offline */}
-      <Row>
-        <Col>
-          <h4>Du är offline! Du kan endast ändra när du är online.</h4>
-        </Col>
-      </Row>
-    </Container>
-  ) : (
-    <Container>
-      {/* Online */}
-      <Row>
-        <Col>
-          <h1>{name}</h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>{description}</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>Pris: {price}kr</p>
-        </Col>
-      </Row>
+    
+    
+     
       <Row>
         <Col>
           <label className="mt-3">
             Produkt:
-            <input className="form-control" {...product.bind("name")} />
+            <input className="form-control"  />
           </label>
         </Col>
       </Row>
@@ -68,7 +45,7 @@ export default function ProductDetail() {
             Beskrivning:
             <textarea
               className="form-control"
-              {...product.bind("description")}
+             
             />
           </label>
         </Col>
@@ -80,16 +57,16 @@ export default function ProductDetail() {
             <input
               type="number"
               className="form-control"
-              {...product.bind("price")}
+              
             />
           </label>
         </Col>
       </Row>
       <Row className="mt-4">
         <Col>
-          <label>
+        <label>
             Kategori:&nbsp;
-            <CategorySelect bindTo={[product, "categoryId"]} />
+           
           </label>
         </Col>
       </Row>
@@ -108,14 +85,7 @@ export default function ProductDetail() {
       >
         Spara
       </button>
-      <td
-        type="button"
-        onClick={save}
-        className="float-end"
-        style={{ cursor: "pointer", width: 1 }}
-      >
-        🗑️
-      </td>
+    
     </Container>
   );
-}
+ }

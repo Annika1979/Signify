@@ -13,6 +13,7 @@ import ProductEdit from "./ProductEdit";
 import Kundvagn from "./components/Kundvagn";
 import Footer from "./components/Footer";
 import BackOffice from "./components/BackOffice";
+import AddProduct from "./components/addProduct";
 
 
 // Create classes used for fetching from the REST-api
@@ -55,6 +56,7 @@ export default function App() {
         <Route path="/Kundvagn" element={<Kundvagn />} />
         <Route path="/ProduktLista" element={<ProduktLista />} />
         <Route path="/Backoffice" element={<BackOffice />} />
+        <Route path="/Backoffice/lagg-till" element={<AddProduct />} />
 
         <Route path="/product-detail/:id" element={<ProductDetail />} />
         <Route path="/backoffice/:id" element={<ProductEdit />} />

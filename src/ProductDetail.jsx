@@ -82,11 +82,7 @@ export default function ProductDetail() {
       </Row>
       <Row>
         <Col>
-          <Link to={`/backoffice/${id}`}>
-            <button type="button" className="my-4 btn btn-primary float-end">
-              Ändra
-            </button>
-          </Link>
+         
         </Col>
       </Row>
       <Row>
