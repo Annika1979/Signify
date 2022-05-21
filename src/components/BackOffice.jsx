@@ -1,6 +1,6 @@
 import { useStates } from '../utilities/states';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { scrollRestore } from '../utilities/scrollBehavior';
 import CategorySelect from '../CategorySelect';
 import { sweFormat } from '../utilities/currencyFormatter';
@@ -36,6 +36,11 @@ export default function backOffice() {
           <Col xxl="12">
             <p><b>Price:</b> {sweFormat(price)}</p>
           </Col>
+          <Link to={`/backoffice/${id}`}>
+            <button type="button" className="my-4 btn btn-primary float-end">
+              Ändra
+            </button>
+          </Link>
         </Card>
       </Row>
     )}
