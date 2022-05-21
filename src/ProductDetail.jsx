@@ -47,7 +47,7 @@ export default function ProductDetail() {
       <Row>
         <Col>
           <Link to={`/ProduktLista`}>
-            <button type="button" className="my-4 btn btn-primary">
+            <button style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white" }} type="button" className="my-4 btn btn-primary">
               Tillbaka
             </button>
             <hr />
@@ -90,7 +90,8 @@ export default function ProductDetail() {
           <button
             type="button"
             onClick={buy}
-            className="btn btn-primary float-end"
+            className="btn btn-primary float-end mb-5"
+            style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white" }}
           >
             Köp
           </button>
