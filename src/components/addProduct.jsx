@@ -34,7 +34,7 @@ export default function AddProduct() {
   // console.log("navigator.onLine", navigator.onLine);
 
   return !navigator.onLine ? (
-    <Container>
+    <Container style={{backgroundColor:"rgba(255, 204, 255,0.5 )", borderRadius:"10px"}}>
     
     
      
@@ -46,9 +46,14 @@ export default function AddProduct() {
       </Row>
     </Container>
   ) : (
-    <Container>
+    <Container style={{backgroundColor:"rgba(255, 204, 255,0.5 )", borderRadius:"10px"}}>
       {/* Online */}
       <Row>
+        <Row>
+        <Col>
+        <h1 className="text-center mt-4" style={{color:"white"}}>Lägg till en produkt</h1>
+        </Col>
+        </Row>
         <Col>
           <h1>{name}</h1>
         </Col>
@@ -67,7 +72,6 @@ export default function AddProduct() {
         <Col>
           <label className="mt-3">
             Produkt:
-            <input className="form-control"  />
             <input className="form-control" {...product.bind("name")} />
           </label>
         </Col>
@@ -97,13 +101,13 @@ export default function AddProduct() {
       </Row>
       <Row className="mt-4">
         <Col>
-          <label>
+          <label className="mb-5">
             Kategori:&nbsp;
             <CategorySelect bindTo={[product, "categoryId"]} />
           </label>
         </Col>
       </Row>
-      <button
+      <button style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white" }}
         type="button"
         onClick={routeBack}
         className="my-4 btn btn-primary float-end"
@@ -111,7 +115,7 @@ export default function AddProduct() {
         Tillbaka
       </button>
 
-      <button
+      <button style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white", marginRight:"5px" }}
         type="button"
         onClick={save}
         className="my-4 btn btn-primary float-end"
