@@ -14,11 +14,13 @@ export default function Header() {
   let s = useStates('main');
   // Links
   let links = [
-    [<img src={Home} alt="home" />
-    , '/'],
+    //[<img src={Home} alt="home" />
+   // , '/'],
    
+    ['Home', '/'],
     ['Produktlista', '/Produktlista'],
-    [ <img src={Cart} alt="shoppingCart" />, '/kundvagn']
+    ['Kundvagn', '/Kundvagn'],
+    //[ <img src={Cart} alt="shoppingCart" />, '/kundvagn']
   ];
 
   return <Navbar fixed="top" expand="lg" className="navbarColor">
