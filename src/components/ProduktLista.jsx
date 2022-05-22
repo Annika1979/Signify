@@ -28,33 +28,38 @@ export default function ProduktLista() {
           <CategorySelect showAllOption bindTo={[s, "chosenCategoryId"]} />
         </Col>
       </Row>
-      {s.products
-        .filter(
-          (product) =>
-            s.chosenCategoryId === 0 /*all*/ ||
-            s.chosenCategoryId === product.categoryId
-        )
-        .map(({ id, name, description, price }) => (
-          <Row className="product" key={id} onClick={() => showDetail(id)}>
-            <Card>
+      <Row
+        // onClick={() => showDetail(id)}
+        xs={2}
+        md={4}
+        lg={6}
+      >
+        {" "}
+        {s.products
+          .filter(
+            (product) =>
+              s.chosenCategoryId === 0 /*all*/ ||
+              s.chosenCategoryId === product.categoryId
+          )
+          .map(({ id, name, description, price }) => (
+            <Card style={{ width: "20rem", margin: "0.25rem" }} key={id}>
               <Col xxl="12">
-                <h3>{name}</h3>
-                <img
+                <Card.Title>{name}</Card.Title>
+                <Card.Img
                   onError={(event) => missingImage(event, name)}
-                  className="float-end ms-3"
-                  style={{ width: 300, height: "auto", objectFit: "cover" }}
+                  variant="top"
                   src={`/images/products/${id}.jpg`}
                 />
-                <p>{description}</p>
+                <Card.Text>{description}</Card.Text>
               </Col>
               <Col xxl="12">
-                <p>
-                  <b>Price:</b> {sweFormat(price)}
-                </p>
+                <Card.Text>
+                  <b>Pris:</b> {sweFormat(price)}
+                </Card.Text>
               </Col>
             </Card>
-          </Row>
-        ))}
+          ))}
+      </Row>
     </Container>
   );
 }
