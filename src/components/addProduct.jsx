@@ -1,43 +1,40 @@
-;
 import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from "../CategorySelect";
 
 export default function AddProduct() {
-   
-
   let s = useStates("main");
-  
+
   let navigate = useNavigate();
 
   let product = s.products;
   console.log(product);
-  
+
   let { id, name, description, price } = product;
+
   async function save() {
     // Save to db
     await product.save();
     // Navigate to detail page
     navigate(`/backoffice/`);
-    
   }
-   function routeBack(){
-    navigate('/backoffice')
-  id = product.length + 1;
-  console.log(id);
-   }
-  
-
+  function routeBack() {
+    navigate("/backoffice");
+    id = product.length + 1;
+    console.log(id);
+  }
 
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
 
   return !navigator.onLine ? (
-    <Container style={{backgroundColor:"rgba(255, 204, 255,0.5 )", borderRadius:"10px"}}>
-    
-    
-     
+    <Container
+      style={{
+        backgroundColor: "rgba(255, 204, 255,0.5 )",
+        borderRadius: "10px",
+      }}
+    >
       {/* Offline */}
       <Row>
         <Col>
@@ -46,13 +43,20 @@ export default function AddProduct() {
       </Row>
     </Container>
   ) : (
-    <Container style={{backgroundColor:"rgba(255, 204, 255,0.5 )", borderRadius:"10px"}}>
+    <Container
+      style={{
+        backgroundColor: "rgba(255, 204, 255,0.5 )",
+        borderRadius: "10px",
+      }}
+    >
       {/* Online */}
       <Row>
         <Row>
-        <Col>
-        <h1 className="text-center mt-4" style={{color:"white"}}>Lägg till en produkt</h1>
-        </Col>
+          <Col>
+            <h1 className="text-center mt-4" style={{ color: "white" }}>
+              Lägg till en produkt
+            </h1>
+          </Col>
         </Row>
         <Col>
           <h1>{name}</h1>
@@ -107,7 +111,13 @@ export default function AddProduct() {
           </label>
         </Col>
       </Row>
-      <button style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white" }}
+      <button
+        style={{
+          backgroundColor: "purple",
+          borderRadius: "10px",
+          border: "none",
+          color: "white",
+        }}
         type="button"
         onClick={routeBack}
         className="my-4 btn btn-primary float-end"
@@ -115,7 +125,14 @@ export default function AddProduct() {
         Tillbaka
       </button>
 
-      <button style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white", marginRight:"5px" }}
+      <button
+        style={{
+          backgroundColor: "purple",
+          borderRadius: "10px",
+          border: "none",
+          color: "white",
+          marginRight: "5px",
+        }}
         type="button"
         onClick={save}
         className="my-4 btn btn-primary float-end"
@@ -123,7 +140,6 @@ export default function AddProduct() {
       >
         Spara
       </button>
-      
     </Container>
   );
-  }
+}
