@@ -19,10 +19,10 @@ export default function ShoppingCart() {
   });
 
   return (
-    <Container className="shoppingCart">
+    <Container style={{backgroundColor:"rgba(255, 204, 255,0.5 )", borderRadius:"10px"}} className="shoppingCart">
       <Row>
         <Col>
-          <h1>Kundvagn</h1>
+          <h1 style={{color:"White", textAlign:"Center", marginTop:"50px"}}>Kundvagn</h1>
         </Col>
       </Row>
       <Row>
@@ -81,15 +81,15 @@ export default function ShoppingCart() {
       <Row>
         <Col>
           <Link className="float-end text-decoration-none" to={`/ProduktLista`}>
-            <button type="button" className="btn btn-primary">
+            <button  style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white" }} type="button" className="mb-5 btn btn-primary">
               Tillbaka
             </button>
           </Link>
           {s.cartContents.length ? (
-            <button
+            <button  style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white" }} className="mb-5 btn btn-primary float-end me-3"
               onClick={empty}
               type="button"
-              className="btn btn-primary float-end me-3"
+              
             >
               Töm varukorg
             </button>
