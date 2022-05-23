@@ -33,7 +33,8 @@ export default function Header() {
         <Nav style={{marginLeft:"250px"}} className="me-auto">
         {links.map(([label, to]) =>
             <Link
-            style={{color:"white"}} key={to} to={to}
+            
+            style={{color:"white",fontFamily: 'Oxygen', fontSize:"150%"}} key={to} to={to}
               className={`nav-link ${to === route ? 'active' : ''}`}
             >{label}</Link>
           )}

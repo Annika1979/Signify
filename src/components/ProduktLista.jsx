@@ -1,38 +1,65 @@
+import React, { useState, useEffect} from "react";
 import { useStates } from '../utilities/states';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { scrollRestore } from '../utilities/scrollBehavior';
 import CategorySelect from '../CategorySelect';
+import PriceSelect from '../PriceSelect';
 import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
 import FilterPrice from '../filterPrice';
 
 
+let oldSearchTerm="";
+
 export default function ProduktLista() {
+  const [searchTerm, setSearchTerm] = useState("");
 
   scrollRestore();
 
   let s = useStates('main');
   let navigate = useNavigate();
- 
-  
-
-
 
 
   function showDetail(id) {
     navigate(`/product-detail/${id}`);
   }
 
+  useEffect(()=>{
+    if(searchTerm===oldSearchTerm){return}
+     oldSearchTerm=searchTerm 
+     s.products=s.allProducts.filter(x=>x.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    
+    },[s])
+
   return <Container className="productList">
     <Row><Col ><h3 style={{color:"white"}}>Välj Kategori</h3></Col></Row>
-    <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
+    <Row className="mb-3"><Col>
+    <CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col>
+    <Col> <input
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="Sök"
+                ></input>
+   </Col>
+    <Col> 
+        <select>
+      <option>Alla Produkter</option>
+      <option>Billigaste</option>
+      <option>Dyraste</option>
+       </select>
+  </Col>
+    
+    </Row>
     {s.products.filter(product =>
      
       s.chosenCategoryId === 0 /*all*/
-      || s.chosenCategoryId === product.categoryId
+      || s.chosenCategoryId === product.categoryId 
     ).map(({ id, name, description, price }) =>
+
+     
       <Row  style={{backgroundColor:"white"}} xxl={12} className="product" key={id} onClick={() => showDetail(id)}>
+        
         <Card >
           <Col xxl={12}>
             <h3>{name}</h3>
