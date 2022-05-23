@@ -25,15 +25,9 @@ export default function App() {
     categories: [],
     chosenCategoryId: 0,
     cartContents: [],
-<<<<<<< HEAD
-    
-    
-    
-=======
     chosenPrice: "",
     allProducts: [],
     searchTerm: "",
->>>>>>> 0784e6728c22d832b902bcd09fcbcf4d543532d2
   });
   window.s = s;
 
