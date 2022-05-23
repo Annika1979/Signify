@@ -26,9 +26,8 @@ export default function ProduktLista() {
   }
   scrollRestore();
 
-  let s = useStates('main');
+  let s = useStates("main");
   let navigate = useNavigate();
-
 
   function showDetail(id) {
     navigate(`/product-detail/${id}`);
@@ -42,57 +41,66 @@ export default function ProduktLista() {
     },[searchTerm])
   
 
-  return <Container className="productList">
+  return (
+   
+    <Container className="productList">
     <Row><Col ><h3 style={{color:"white"}}>Välj Kategori</h3></Col></Row>
-    <Row className="mb-3"><Col>
-    <CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col>
-    <Col> <input
+      <Row className="mb-3">
+        <Col>
+          <CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} />
+        </Col>
+        <Col>
+          <input
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
                   placeholder="Sök"
-                ></input>
-   </Col>
-    <Col> 
+                />
+        </Col>
+        <Col> 
         <select onChange={(event) => 
         {setShowPrice(event.target.value)
-         sortPrice();
-                       
+         sortPrice();                      
              }}>
       <option>sortera</option>
       <option>Billigaste</option>
       <option>Dyraste</option>
-       </select>
-          
-
-        
-        
-        
-       
-     
-  </Col>
+       </select>          
+    </Col>
     
     </Row>
-    {s.products.filter(product =>
-     
-      s.chosenCategoryId === 0 /*all*/
-      || s.chosenCategoryId === product.categoryId 
-    ).map(({ id, name, description, price }) =>
+    
 
-     
-      <Row  style={{backgroundColor:"white"}} xxl={12} className="product" key={id} onClick={() => showDetail(id)}>
-        
-        <Card >
-          <Col xxl={12}>
-            <h3>{name}</h3>
-            <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 250, height: "auto" }} src={`/images/products/${id}.jpg`} />
-            <p>{description}</p>
-          </Col>
-          <Col >
-            <p><b>Price:</b> {sweFormat(price)}</p>
-          </Col>
-        </Card>
-     
+      <Row xs={2} md={4} lg={6}>
+        {" "}
+        {s.products
+          .filter(
+            (product) =>
+              s.chosenCategoryId === 0 /*all*/ ||
+              s.chosenCategoryId === product.categoryId
+          )
+          .map(({ id, name, description, price }) => (
+            <Card
+              style={{ width: "20rem", margin: "0.25rem" }}
+              key={id}
+              onClick={() => showDetail(id)}
+            >
+              <Col xxl="12">
+                <Card.Title>{name}</Card.Title>
+                <Card.Img
+                  onError={(event) => missingImage(event, name)}
+                  variant="top"
+                  src={`/images/products/${id}.jpg`}
+                />
+                <Card.Text>{description}</Card.Text>
+              </Col>
+              <Col xxl="12">
+                <Card.Text>
+                  <b>Pris:</b> {sweFormat(price)}
+                </Card.Text>
+              </Col>
+            </Card>
+          ))}
       </Row>
-    )}
-  </Container>
+    </Container>
+  );
 }
