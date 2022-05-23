@@ -18,14 +18,28 @@ import PersonalInfo from "./components/PersonalInfo";
 
 // Create classes used for fetching from the REST-api
 const { Product, Categorie: Category } = factory;
-
+let oldSearchTerm = "";
 export default function App() {
   let s = useStates("main", {
     products: [],
     categories: [],
     chosenCategoryId: 0,
     cartContents: [],
+    chosenPrice: "",
+    allProducts: [],
+    searchTerm: "",
   });
+  window.s = s;
+
+  useEffect(() => {
+    if (s.searchTerm === oldSearchTerm) {
+      return;
+    }
+    oldSearchTerm = s.searchTerm;
+    s.products = s.allProducts.filter((x) =>
+      x.name.toLowerCase().includes(s.searchTerm.toLowerCase())
+    );
+  }, [s]);
 
   useEffect(() => {
     (async () => {
@@ -33,6 +47,7 @@ export default function App() {
       s.categories = await Category.find();
       // get the products from the db
       s.products = await Product.find();
+      s.allProducts = s.products.slice();
 
       // initilize the shopping cart
       // (this provides local storage of cartContents)

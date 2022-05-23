@@ -21,14 +21,12 @@ export default function StartPage() {
         </Col>
         </Row>
         <Col>
-        <p  style={{  color:"white", paddingTop:"50px"}}>Snabba Leveranser
- Med en lång erfarenhet, välorganiserade logistiska transaktioner och perfekt service blir Cosign den självklara partnern för dig som behöver en leverantör du kan lita på.
-
-Stort Utbud
- Med ett omfattande och unikt utbud av produkter och tillgång till ett stort lager har vi möjlighet att hålla hög leveranskapacitet.
-
-Kunden står i centrum
- Vi anser att snabba leveranser, en god service, med en bra kvalitét och dig som kund i centrum ger mycket goda förutsättningar för ett gott slutresultat.
+        <p className="textAnimation" style={{  color:"white", paddingTop:"50px"}}>Snabba Leveranser
+ Med en lång erfarenhet, välorganiserade logistiska transaktioner och perfekt service
+  blir Signify den självklara partnern för dig som behöver en leverantör du kan lita på.
+Stort Utbud Med ett omfattande och unikt utbud av produkter och tillgång till ett stort lager har vi möjlighet att hålla hög leveranskapacitet.
+Kunden står i centrum Vi anser att snabba leveranser, en god service, 
+med en bra kvalitét och dig som kund i centrum ger mycket goda förutsättningar för ett gott slutresultat.
         </p>
         </Col>
         <Col>
