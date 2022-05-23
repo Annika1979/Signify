@@ -8,54 +8,52 @@ import "./utilities/scrollBehavior";
 import ProductDetail from "./ProductDetail";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import ProduktLista from "./components/ProduktLista"
+import ProduktLista from "./components/ProduktLista";
 import ProductEdit from "./ProductEdit";
 import Kundvagn from "./components/Kundvagn";
 import Footer from "./components/Footer";
 import BackOffice from "./components/BackOffice";
 import AddProduct from "./components/addProduct";
-
+import PersonalInfo from "./components/PersonalInfo";
 
 // Create classes used for fetching from the REST-api
 const { Product, Categorie: Category } = factory;
-let oldSearchTerm="";
+let oldSearchTerm = "";
 export default function App() {
   let s = useStates("main", {
     products: [],
     categories: [],
     chosenCategoryId: 0,
     cartContents: [],
-    chosenPrice:"",
-    allProducts:[],
-    searchTerm:""
-
-    
-    
+    chosenPrice: "",
+    allProducts: [],
+    searchTerm: "",
   });
- window.s= s;
- 
+  window.s = s;
 
-useEffect(()=>{
-if(s.searchTerm===oldSearchTerm){return}
- oldSearchTerm=s.searchTerm 
- s.products=s.allProducts.filter(x=>x.name.toLowerCase().includes(s.searchTerm.toLowerCase()))
+  useEffect(() => {
+    if (s.searchTerm === oldSearchTerm) {
+      return;
+    }
+    oldSearchTerm = s.searchTerm;
+    s.products = s.allProducts.filter((x) =>
+      x.name.toLowerCase().includes(s.searchTerm.toLowerCase())
+    );
+  }, [s]);
 
-},[s])
- 
   useEffect(() => {
     (async () => {
       // get the categories from the db
       s.categories = await Category.find();
       // get the products from the db
       s.products = await Product.find();
-      s.allProducts = s.products.slice()
+      s.allProducts = s.products.slice();
 
       // initilize the shopping cart
       // (this provides local storage of cartContents)
       init(s, "cartContents");
     })();
   }, []);
- 
 
   return s.products.length === 0 ? null : (
     <Router>
@@ -63,6 +61,7 @@ if(s.searchTerm===oldSearchTerm){return}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Kundvagn" element={<Kundvagn />} />
+        <Route path="/PersonalInfo" element={<PersonalInfo />} />
         <Route path="/ProduktLista" element={<ProduktLista />} />
         <Route path="/Backoffice" element={<BackOffice />} />
         <Route path="/Backoffice/lagg-till" element={<AddProduct />} />
