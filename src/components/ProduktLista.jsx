@@ -1,13 +1,29 @@
-import { useStates } from "../utilities/states";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React, { useState, useEffect} from "react";
+import { useStates } from '../utilities/states';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { scrollRestore } from "../utilities/scrollBehavior";
-import CategorySelect from "../CategorySelect";
-import { sweFormat } from "../utilities/currencyFormatter";
-import { missingImage } from "../utilities/handleMissingImage";
-import FilterPrice from "../filterPrice";
+import { scrollRestore } from '../utilities/scrollBehavior';
+import CategorySelect from '../CategorySelect';
+import PriceSelect from '../PriceSelect';
+import { sweFormat } from '../utilities/currencyFormatter';
+import { missingImage } from '../utilities/handleMissingImage';
+import FilterPrice from '../filterPrice';
+
+
+let oldSearchTerm="";
 
 export default function ProduktLista() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showPrice, setShowPrice] = useState("Billigaste");
+
+  function sortPrice(){
+    if(showPrice==="Billigaste"){
+      s.products.sort((a,b)=>a.price<b.price?-1:1);
+    }
+    if(showPrice==="Dyraste"){
+      s.products.sort((a,b)=>a.price<b.price?1:-1);
+    }
+  }
   scrollRestore();
 
   let s = useStates("main");
@@ -17,18 +33,42 @@ export default function ProduktLista() {
     navigate(`/product-detail/${id}`);
   }
 
+  useEffect(()=>{
+    if(searchTerm==="") {return}   
+    if(searchTerm===false) {return}   
+     s.products=s.allProducts.filter(x=>x.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    
+    },[searchTerm])
+  
+
   return (
+   
     <Container className="productList">
-      <Row>
-        <Col>
-          <h3 style={{ color: "white" }}>Välj Kategori</h3>
-        </Col>
-      </Row>
+    <Row><Col ><h3 style={{color:"white"}}>Välj Kategori</h3></Col></Row>
       <Row className="mb-3">
         <Col>
-          <CategorySelect showAllOption bindTo={[s, "chosenCategoryId"]} />
+          <CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} />
         </Col>
-      </Row>
+        <Col>
+          <input
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="Sök"
+                />
+        </Col>
+        <Col> 
+        <select onChange={(event) => 
+        {setShowPrice(event.target.value)
+         sortPrice();                      
+             }}>
+      <option>sortera</option>
+      <option>Billigaste</option>
+      <option>Dyraste</option>
+       </select>          
+    </Col>
+    
+    </Row>
+    
 
       <Row xs={2} md={4} lg={6}>
         {" "}
