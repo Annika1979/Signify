@@ -28,9 +28,10 @@ export default function backOffice() {
        // get the categories from the db
       
        // get the products from the db
-       s.products = await Product.find();
+      s.products= await Product.find();
       
-     })},[])
+      })();
+  },[] );
 
   return (
     <Container className="productList">
