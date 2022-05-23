@@ -5,11 +5,19 @@ import { scrollRestore } from '../utilities/scrollBehavior';
 import CategorySelect from '../CategorySelect';
 import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
+import { useEffect } from "react";
+import { factory } from "../utilities/FetchHelper"
 
+const { Product } = factory;
+
+
+ 
 
 export default function backOffice() {
 
   scrollRestore();
+
+ 
 
   let s = useStates('main');
   let navigate = useNavigate();
@@ -17,7 +25,20 @@ export default function backOffice() {
   function showDetail(id) {
     navigate(`/backoffice/${id}`);
   }
+   
+   useEffect(() => {
+    (async () => {
+      // get the categories from the db
+      
+      // get the products from the db
+      s.products = await Product.find();
+      
 
+      // initilize the shopping cart
+      // (this provides local storage of cartContents)
+      
+    })();
+  }, []);
   
   return <Container className="productList">
       <Link to={`/backoffice/lagg-till`}>
@@ -37,7 +58,7 @@ export default function backOffice() {
         <Card>
           <Col xxl="12">
             <h3>{name}</h3>
-            <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 300, height: "auto", objectFit: 'cover' }} src={`/images/products/${id}.jpg`} />
+           
             <p>{description}</p>
           </Col>
           <Col xxl="12">

@@ -2,28 +2,43 @@ import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from "../CategorySelect";
+import { factory } from "../utilities/FetchHelper"
+import React from 'react'
+
+
+
+const { Product } = factory;
 
 export default function AddProduct() {
-  let s = useStates("main");
-  let { id } = useParams();
+  
+
+ 
+  
+  let s = useStates("main")
   let navigate = useNavigate();
-
-  let product = s.products.find((x) => x.id === +id);
-  if (!product) {
-    return null;
-  }
-  let { name, description, price } = product;
-
+  
+  // lokalt state för denna komponent
+  let state = useStates({
+    newProduct: new Product({
+      name: '',
+      description: '',
+      price: '',
+      categoryId: ""
+    })
+  });
+ console.log(state.newProduct)
   async function save() {
     // Save to db
-    await product.save();
+    await state.newProduct.save()
     // Navigate to detail page
-    navigate(`/backoffice/`);
     
+    alert("Saved")
+    // navigate(`/backoffice/`);
   }
-   function routeBack(){
+  
+  function routeBack(){
     navigate('/backoffice')
-   }
+  }
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
 
@@ -41,24 +56,24 @@ export default function AddProduct() {
       {/* Online */}
       <Row>
         <Col>
-          <h1>{name}</h1>
+          <h1>{}</h1>
         </Col>
       </Row>
       <Row>
         <Col>
-          <p>{description}</p>
+          <p>{}</p>
         </Col>
       </Row>
       <Row>
         <Col>
-          <p>Pris: {price}kr</p>
+          <p>Pris: {}kr</p>
         </Col>
       </Row>
       <Row>
         <Col>
           <label className="mt-3">
             Produkt:
-            <input className="form-control" {...product.bind("name")} />
+            <input className="form-control" { ...state.newProduct.bind("name")} />
           </label>
         </Col>
       </Row>
@@ -68,7 +83,7 @@ export default function AddProduct() {
             Beskrivning:
             <textarea
               className="form-control"
-              {...product.bind("description")}
+              {...state.newProduct.bind("description")}
             />
           </label>
         </Col>
@@ -80,7 +95,7 @@ export default function AddProduct() {
             <input
               type="number"
               className="form-control"
-              {...product.bind("price")}
+              {...state.newProduct.bind("price")}
             />
           </label>
         </Col>
@@ -89,7 +104,7 @@ export default function AddProduct() {
         <Col>
           <label>
             Kategori:&nbsp;
-            <CategorySelect bindTo={[product, "categoryId"]} />
+            <CategorySelect showAllOption bindTo={[state.newProduct, 'categoryId']} />
           </label>
         </Col>
       </Row>
@@ -108,14 +123,6 @@ export default function AddProduct() {
       >
         Spara
       </button>
-      <td
-        type="button"
-        onClick={save}
-        className="float-end"
-        style={{ cursor: "pointer", width: 1 }}
-      >
-        🗑️
-      </td>
     </Container>
   );
 }
