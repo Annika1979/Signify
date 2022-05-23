@@ -14,7 +14,16 @@ let oldSearchTerm="";
 
 export default function ProduktLista() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [showPrice, setShowPrice] = useState("Billigaste");
 
+  function sortPrice(){
+    if(showPrice==="Billigaste"){
+      s.products.sort((a,b)=>a.price<b.price?-1:1);
+    }
+    if(showPrice==="Dyraste"){
+      s.products.sort((a,b)=>a.price<b.price?1:-1);
+    }
+  }
   scrollRestore();
 
   let s = useStates('main');
@@ -26,11 +35,12 @@ export default function ProduktLista() {
   }
 
   useEffect(()=>{
-    if(searchTerm===oldSearchTerm){return}
-     oldSearchTerm=searchTerm 
+    if(searchTerm==="") {return}   
+    if(searchTerm===false) {return}   
      s.products=s.allProducts.filter(x=>x.name.toLowerCase().includes(searchTerm.toLowerCase()))
     
-    },[s])
+    },[searchTerm])
+  
 
   return <Container className="productList">
     <Row><Col ><h3 style={{color:"white"}}>Välj Kategori</h3></Col></Row>
@@ -43,11 +53,22 @@ export default function ProduktLista() {
                 ></input>
    </Col>
     <Col> 
-        <select>
-      <option>Alla Produkter</option>
+        <select onChange={(event) => 
+        {setShowPrice(event.target.value)
+         sortPrice();
+                       
+             }}>
+      <option>sortera</option>
       <option>Billigaste</option>
       <option>Dyraste</option>
        </select>
+          
+
+        
+        
+        
+       
+     
   </Col>
     
     </Row>

@@ -34,6 +34,13 @@ export default function App() {
   });
  window.s= s;
  
+
+useEffect(()=>{
+if(s.searchTerm===oldSearchTerm){return}
+ oldSearchTerm=s.searchTerm 
+ s.products=s.allProducts.filter(x=>x.name.toLowerCase().includes(s.searchTerm.toLowerCase()))
+
+},[s])
  
   useEffect(() => {
     (async () => {
