@@ -14,24 +14,27 @@ export default function Header() {
   let s = useStates('main');
   // Links
   let links = [
-    [<img src={Home} alt="home" />
-    , '/'],
+    //[<img src={Home} alt="home" />
+   // , '/'],
    
+    ['Home', '/'],
     ['Produktlista', '/Produktlista'],
-    [ <img src={Cart} alt="shoppingCart" />, '/kundvagn']
+    ['Kundvagn', '/Kundvagn'],
+    //[ <img src={Cart} alt="shoppingCart" />, '/kundvagn']
   ];
 
   return <Navbar fixed="top" expand="lg" className="navbarColor">
     <Container>
-    <Navbar.Brand>
+    <Navbar.Brand  >
             <img src={Sign} alt="logo" />
           </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
+        <Nav style={{marginLeft:"250px"}} className="me-auto">
         {links.map(([label, to]) =>
             <Link
-            style={{color:"white"}} key={to} to={to}
+            
+            style={{color:"white",fontFamily: 'Oxygen', fontSize:"150%"}} key={to} to={to}
               className={`nav-link ${to === route ? 'active' : ''}`}
             >{label}</Link>
           )}
