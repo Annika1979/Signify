@@ -10,7 +10,7 @@ export default function CategorySelector(props) {
     
     {showAllOption &&<option key={0} value={0}>Alla Produkter</option>}
     
-    {s.categories.map(({ name, id }) =>
+    {(s.categories ).map(({ name, id }) =>
       <option key={id} value={id}>{name}</option>
     )}
   </select>
