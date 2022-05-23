@@ -2,39 +2,48 @@ import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from "../CategorySelect";
+import { factory } from "../utilities/FetchHelper"
+import React from 'react'
+
+
+
+const { Product } = factory;
 
 export default function AddProduct() {
-  let s = useStates("main");
+  
 
+ 
+  
+  let s = useStates("main")
   let navigate = useNavigate();
-
-  let product = s.products;
-  console.log(product);
-
-  let { id, name, description, price } = product;
-
+  
+  // lokalt state för denna komponent
+  let state = useStates({
+    newProduct: new Product({
+      name: '',
+      description: '',
+      price: '',
+      categoryId: ""
+    })
+  });
+ console.log(state.newProduct)
   async function save() {
     // Save to db
-    await product.save();
+    await state.newProduct.save()
     // Navigate to detail page
-    navigate(`/backoffice/`);
+    
+    alert("Saved")
+    // navigate(`/backoffice/`);
   }
-  function routeBack() {
-    navigate("/backoffice");
-    id = product.length + 1;
-    console.log(id);
+  
+  function routeBack(){
+    navigate('/backoffice')
   }
-
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
 
   return !navigator.onLine ? (
-    <Container
-      style={{
-        backgroundColor: "rgba(255, 204, 255,0.5 )",
-        borderRadius: "10px",
-      }}
-    >
+    <Container>
       {/* Offline */}
       <Row>
         <Col>
@@ -43,40 +52,28 @@ export default function AddProduct() {
       </Row>
     </Container>
   ) : (
-    <Container
-      style={{
-        backgroundColor: "rgba(255, 204, 255,0.5 )",
-        borderRadius: "10px",
-      }}
-    >
+    <Container>
       {/* Online */}
       <Row>
-        <Row>
-          <Col>
-            <h1 className="text-center mt-4" style={{ color: "white" }}>
-              Lägg till en produkt
-            </h1>
-          </Col>
-        </Row>
         <Col>
-          <h1>{name}</h1>
+          <h1>{}</h1>
         </Col>
       </Row>
       <Row>
         <Col>
-          <p>{description}</p>
+          <p>{}</p>
         </Col>
       </Row>
       <Row>
         <Col>
-          <p>Pris: {price}kr</p>
+          <p>Pris: {}kr</p>
         </Col>
       </Row>
       <Row>
         <Col>
           <label className="mt-3">
             Produkt:
-            <input className="form-control" {...product.bind("name")} />
+            <input className="form-control" { ...state.newProduct.bind("name")} />
           </label>
         </Col>
       </Row>
@@ -86,7 +83,7 @@ export default function AddProduct() {
             Beskrivning:
             <textarea
               className="form-control"
-              {...product.bind("description")}
+              {...state.newProduct.bind("description")}
             />
           </label>
         </Col>
@@ -98,16 +95,16 @@ export default function AddProduct() {
             <input
               type="number"
               className="form-control"
-              {...product.bind("price")}
+              {...state.newProduct.bind("price")}
             />
           </label>
         </Col>
       </Row>
       <Row className="mt-4">
         <Col>
-          <label className="mb-5">
+          <label>
             Kategori:&nbsp;
-            <CategorySelect bindTo={[product, "categoryId"]} />
+            <CategorySelect showAllOption bindTo={[state.newProduct, 'categoryId']} />
           </label>
         </Col>
       </Row>
@@ -136,7 +133,7 @@ export default function AddProduct() {
         type="button"
         onClick={save}
         className="my-4 btn btn-primary float-end"
-        {...product.bind("id")}
+        {...state.newProduct.bind("id")}
       >
         Spara
       </button>

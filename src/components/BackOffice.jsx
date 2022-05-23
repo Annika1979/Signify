@@ -1,10 +1,17 @@
 import { useStates } from "../utilities/states";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
-import { scrollRestore } from "../utilities/scrollBehavior";
-import CategorySelect from "../CategorySelect";
-import { sweFormat } from "../utilities/currencyFormatter";
-import { missingImage } from "../utilities/handleMissingImage";
+import { scrollRestore } from '../utilities/scrollBehavior';
+import CategorySelect from '../CategorySelect';
+import { sweFormat } from '../utilities/currencyFormatter';
+import { missingImage } from '../utilities/handleMissingImage';
+import { useEffect } from "react";
+import { factory } from "../utilities/FetchHelper"
+
+const { Product } = factory;
+
+
+ 
 
 export default function backOffice() {
   scrollRestore();
@@ -15,6 +22,15 @@ export default function backOffice() {
   function showDetail(id) {
     navigate(`/backoffice/${id}`);
   }
+   
+   useEffect(() => {
+     (async () => {
+       // get the categories from the db
+      
+       // get the products from the db
+       s.products = await Product.find();
+      
+     })},[])
 
   return (
     <Container className="productList">
