@@ -133,7 +133,7 @@ export default function AddProduct() {
         type="button"
         onClick={save}
         className="my-4 btn btn-primary float-end"
-        {...state.newProduct.bind("id")}
+        {...state.new.bind("id")}
       >
         Spara
       </button>

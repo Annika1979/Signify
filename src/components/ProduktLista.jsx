@@ -48,6 +48,7 @@ export default function ProduktLista() {
      s.products=s.allProducts.filter(x=>x.name.toLowerCase().includes(searchTerm.toLowerCase()))
     
     },[searchTerm])
+    
   
 
   return (
@@ -58,6 +59,7 @@ export default function ProduktLista() {
         <Col>
           <CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} />
         </Col>
+        
         <Col>
           <input
                   value={searchTerm}
@@ -72,15 +74,14 @@ export default function ProduktLista() {
       <option>Billigaste</option>
       <option>Dyraste</option>
        </select>          
-    </Col>
+       </Col>
+    
     
     </Row>
     
 
       <Row xs={2} md={4} lg={6}>
-        {" "}
-        {s.products.length === 0 ? <p>Hittade inga produkter.</p> : s.products
-          .filter(
+        {s.products.filter(
             (product) =>
               s.chosenCategoryId === 0 /*all*/ ||
               s.chosenCategoryId === product.categoryId

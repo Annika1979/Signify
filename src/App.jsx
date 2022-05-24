@@ -56,6 +56,7 @@ export default function App() {
   }, []);
 
   return s.allProducts.length === 0 ? null : (
+    
     <Router>
       <Header />
       <Routes>
