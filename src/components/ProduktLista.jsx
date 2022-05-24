@@ -4,13 +4,13 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { scrollRestore } from '../utilities/scrollBehavior';
 import CategorySelect from '../CategorySelect';
-import PriceSelect from '../PriceSelect';
+
 import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
-import FilterPrice from '../filterPrice';
 
 
-let oldSearchTerm="";
+
+
 
 export default function ProduktLista() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,21 +18,12 @@ export default function ProduktLista() {
 
   function sortPrice(){
     if(showPrice==="Billigaste"){
-      s.products.sort((a, b) => a.price < b.price ? -1 : 1);
-      console.log('Sorterar efter billigast')
+      s.products.sort((a,b)=>a.price<b.price?-1:1);
     }
     if(showPrice==="Dyraste"){
-      s.products.sort((a, b) => a.price < b.price ? 1 : -1);
-      console.log('Sorterar efter dyrast')
+      s.products.sort((a,b)=>a.price<b.price?1:-1);
     }
   }
-
-  useEffect(() => { 
-    sortPrice();
-  }, [showPrice])
-
-
-
   scrollRestore();
 
   let s = useStates("main");
@@ -48,7 +39,12 @@ export default function ProduktLista() {
      s.products=s.allProducts.filter(x=>x.name.toLowerCase().includes(searchTerm.toLowerCase()))
     
     },[searchTerm])
+
     
+  useEffect(()=>{
+    sortPrice();
+    
+    },[showPrice])
   
 
   return (
@@ -59,7 +55,6 @@ export default function ProduktLista() {
         <Col>
           <CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} />
         </Col>
-        
         <Col>
           <input
                   value={searchTerm}
@@ -69,19 +64,21 @@ export default function ProduktLista() {
         </Col>
         <Col> 
         <select onChange={(event) => 
-        {setShowPrice(event.target.value)                
+        {setShowPrice(event.target.value)                     
              }}>
+     
       <option>Billigaste</option>
       <option>Dyraste</option>
        </select>          
-       </Col>
-    
+    </Col>
     
     </Row>
     
 
       <Row xs={2} md={4} lg={6}>
-        {s.products.filter(
+        
+        {s.products
+          .filter(
             (product) =>
               s.chosenCategoryId === 0 /*all*/ ||
               s.chosenCategoryId === product.categoryId
