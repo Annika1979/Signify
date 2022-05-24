@@ -39,6 +39,12 @@ export default function ProduktLista() {
      s.products=s.allProducts.filter(x=>x.name.toLowerCase().includes(searchTerm.toLowerCase()))
     
     },[searchTerm])
+
+    
+  useEffect(()=>{
+    sortPrice();
+    
+    },[showPrice])
   
 
   return (
@@ -58,10 +64,9 @@ export default function ProduktLista() {
         </Col>
         <Col> 
         <select onChange={(event) => 
-        {setShowPrice(event.target.value)
-         sortPrice();                      
+        {setShowPrice(event.target.value)                     
              }}>
-      <option>sortera</option>
+     
       <option>Billigaste</option>
       <option>Dyraste</option>
        </select>          
