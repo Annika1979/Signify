@@ -68,3 +68,20 @@ label {
  
   color: orange;
 }
+
+@keyframes textFlow {
+  from {
+    color:rgba(255, 255, 255, 0);
+
+  }
+  to {
+    display: block;
+    color: white;
+  }
+}
+
+.textAnimation {
+  color: rgba(255, 255, 255, 0);
+  animation: textFlow 8s ease;
+  font-size: 120%;
+}

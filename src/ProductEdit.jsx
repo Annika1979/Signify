@@ -21,6 +21,7 @@ export default function ProductDetail() {
     navigate(`/backoffice/`);
     
   }
+   
 
   async function Tabort(){
 

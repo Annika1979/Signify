@@ -69,7 +69,7 @@ export default function ProductDetail() {
           <img
             onError={(event) => missingImage(event, name)}
             className="float-end ms-3"
-            style={{ width: 250, height: 150, objectFit: "cover" }}
+            style={{ width: 300, height: "auto" }}
             src={`/images/products/${id}.jpg`}
           />
           <p>{description}</p>

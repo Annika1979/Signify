@@ -14,11 +14,13 @@ export default function Header() {
   let s = useStates('main');
   // Links
   let links = [
-    [<img src={Home} alt="home" />
-    , '/'],
+    //[<img src={Home} alt="home" />
+   // , '/'],
    
+    ['Home', '/'],
     ['Produktlista', '/Produktlista'],
-    [ <img src={Cart} alt="shoppingCart" />, '/kundvagn']
+    ['Kundvagn', '/Kundvagn'],
+    //[ <img src={Cart} alt="shoppingCart" />, '/kundvagn']
   ];
 
   return <Navbar fixed="top" expand="lg" className="navbarColor">
@@ -31,7 +33,8 @@ export default function Header() {
         <Nav style={{marginLeft:"250px"}} className="me-auto">
         {links.map(([label, to]) =>
             <Link
-            style={{color:"white"}} key={to} to={to}
+            
+            style={{color:"white",fontFamily: 'Oxygen', fontSize:"150%"}} key={to} to={to}
               className={`nav-link ${to === route ? 'active' : ''}`}
             >{label}</Link>
           )}
