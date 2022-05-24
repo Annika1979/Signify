@@ -23,6 +23,15 @@ export default function ProduktLista() {
     if(showPrice==="Dyraste"){
       s.products.sort((a,b)=>a.price<b.price?1:-1);
     }
+    if(showPrice==="A-Ö"){
+      s.products.sort((a, b) => {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+        if (b.name.toLowerCase() > a.name.toLowerCase()) return -1;
+        return 0;
+      });
+      
+    }
+    
   }
   scrollRestore();
 
@@ -69,6 +78,7 @@ export default function ProduktLista() {
      
       <option>Billigaste</option>
       <option>Dyraste</option>
+      <option>A-Ö</option>
        </select>          
     </Col>
     
