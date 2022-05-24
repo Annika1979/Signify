@@ -18,12 +18,21 @@ export default function ProduktLista() {
 
   function sortPrice(){
     if(showPrice==="Billigaste"){
-      s.products.sort((a,b)=>a.price<b.price?-1:1);
+      s.products.sort((a, b) => a.price < b.price ? -1 : 1);
+      console.log('Sorterar efter billigast')
     }
     if(showPrice==="Dyraste"){
-      s.products.sort((a,b)=>a.price<b.price?1:-1);
+      s.products.sort((a, b) => a.price < b.price ? 1 : -1);
+      console.log('Sorterar efter dyrast')
     }
   }
+
+  useEffect(() => { 
+    sortPrice();
+  }, [showPrice])
+
+
+
   scrollRestore();
 
   let s = useStates("main");
@@ -58,10 +67,8 @@ export default function ProduktLista() {
         </Col>
         <Col> 
         <select onChange={(event) => 
-        {setShowPrice(event.target.value)
-         sortPrice();                      
+        {setShowPrice(event.target.value)                
              }}>
-      <option>sortera</option>
       <option>Billigaste</option>
       <option>Dyraste</option>
        </select>          
@@ -72,7 +79,7 @@ export default function ProduktLista() {
 
       <Row xs={2} md={4} lg={6}>
         {" "}
-        {s.products
+        {s.products.length === 0 ? <p>Hittade inga produkter.</p> : s.products
           .filter(
             (product) =>
               s.chosenCategoryId === 0 /*all*/ ||
