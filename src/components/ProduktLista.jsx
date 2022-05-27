@@ -52,7 +52,7 @@ export default function ProduktLista() {
     <Row><Col ><h3 style={{color:"white"}}>Välj Kategori</h3></Col></Row>
       <Row className="mb-3">
         <Col>
-          <CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} />
+          <CategorySelect showAllOption bindTo={[s, 'products']} />
         </Col>
         <Col>
           <input
