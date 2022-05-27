@@ -2,13 +2,13 @@ import { useStates } from "../utilities/states";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { scrollRestore } from '../utilities/scrollBehavior';
-import CategorySelect from '../CategorySelect';
+import CategorySelect from '../utilities/CategorySelect';
 import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
 import { useEffect } from "react";
 import { factory } from "../utilities/FetchHelper"
 
-const { Product } = factory;
+const { Product,Categorie: Category } = factory;
 
 
  
@@ -28,24 +28,27 @@ export default function backOffice() {
        // get the categories from the db
       
        // get the products from the db
-      s.products= await Product.find();
+       s.products = await Product.find();
+       s.categories =  await Category.find();
       
       })();
   },[] );
 
   return (
     <Container className="productList">
-      <Link to={`/backoffice/lagg-till`}>
+      <Link to={`/backoffice/Edit`}>
         <button type="button" className="my-3 btn btn-primary float-end">
-          Lägg till
+         Redigera
         </button>
       </Link>
+      
+
       <Row>
         <Col>
           <h3>Välj Kategori</h3>
         </Col>
       </Row>
-
+      
       <Row className="mb-3">
         <Col>
           <CategorySelect showAllOption bindTo={[s, "chosenCategoryId"]} />
