@@ -1,6 +1,6 @@
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
-//import Sign from '../../public/images/products/SigniFy.png'
+import Sign from "/images/products/SigniFy.png";
 
 import { useStates } from "../utilities/states";
 
