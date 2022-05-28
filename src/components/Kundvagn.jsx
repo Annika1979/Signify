@@ -31,7 +31,7 @@ export default function ShoppingCart() {
   return (
     <Container
       style={{
-        backgroundColor: "rgba(255, 204, 255,0.5 )",
+        backgroundColor: "rgb(222, 226, 226)",
         borderRadius: "10px",
       }}
       className="shoppingCart"
@@ -39,7 +39,7 @@ export default function ShoppingCart() {
       <Row>
         <Col>
           <h1
-            style={{ color: "White", textAlign: "Center", marginTop: "50px" }}
+            style={{ color: "Black", textAlign: "Center", marginTop: "50px" }}
           >
             Kundvagn
           </h1>
@@ -106,7 +106,7 @@ export default function ShoppingCart() {
           <Link className="float-end text-decoration-none" to={`/ProduktLista`}>
             <button
               style={{
-                backgroundColor: "purple",
+                backgroundColor: "rgba(102, 10, 59, 1)",
                 borderRadius: "10px",
                 border: "none",
                 color: "white",
@@ -122,7 +122,7 @@ export default function ShoppingCart() {
             
             <button
               style={{
-                backgroundColor: "purple",
+                backgroundColor: "rgba(102, 10, 59, 1)",
                 borderRadius: "10px",
                 border: "none",
                 color: "white",
@@ -138,7 +138,7 @@ export default function ShoppingCart() {
           {s.cartContents.length ? (
             <button
               style={{
-                backgroundColor: "purple",
+                backgroundColor: "rgba(102, 10, 59, 1)",
                 borderRadius: "10px",
                 border: "none",
                 color: "white",

@@ -1,17 +1,14 @@
 import { useStates } from "../utilities/states";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
-import { scrollRestore } from '../utilities/scrollBehavior';
-import CategorySelect from '../utilities/CategorySelect';
-import { sweFormat } from '../utilities/currencyFormatter';
-import { missingImage } from '../utilities/handleMissingImage';
+import { scrollRestore } from "../utilities/scrollBehavior";
+import CategorySelect from "../utilities/CategorySelect";
+import { sweFormat } from "../utilities/currencyFormatter";
+import { missingImage } from "../utilities/handleMissingImage";
 import { useEffect } from "react";
-import { factory } from "../utilities/FetchHelper"
+import { factory } from "../utilities/FetchHelper";
 
-const { Product,Categorie: Category } = factory;
-
-
- 
+const { Product, Categorie: Category } = factory;
 
 export default function backOffice() {
   scrollRestore();
@@ -22,33 +19,33 @@ export default function backOffice() {
   function showDetail(id) {
     navigate(`/backoffice/${id}`);
   }
-   
-   useEffect(() => {
-     (async () => {
-       // get the categories from the db
-      
-       // get the products from the db
-       s.products = await Product.find();
-       s.categories =  await Category.find();
-      
-      })();
-  },[] );
+
+  useEffect(() => {
+    (async () => {
+      // get the categories from the db
+
+      // get the products from the db
+      s.products = await Product.find();
+      s.categories = await Category.find();
+    })();
+  }, []);
 
   return (
-    <Container className="productList">
-      <Link to={`/backoffice/Edit`}>
-        <button type="button" className="my-3 btn btn-primary float-end">
-         Redigera
-        </button>
+    <Container xs={2} md={4} lg={6} className="productList">
+      <Link to={`/backoffice/lagg-till`}>
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" className=" btn btn-primary">
+            Lägg till
+          </button>
+        </div>
       </Link>
-      
 
       <Row>
         <Col>
           <h3>Välj Kategori</h3>
         </Col>
       </Row>
-      
+
       <Row className="mb-3">
         <Col>
           <CategorySelect showAllOption bindTo={[s, "chosenCategoryId"]} />
@@ -63,7 +60,13 @@ export default function backOffice() {
           )
           .map(({ id, name, description, price }) => (
             <Card
-              style={{ width: "20rem", margin: "0.25rem" }}
+              className="mx-auto"
+              style={{
+                width: "20rem",
+                margin: "0.6rem",
+                paddingTop: "20px",
+                boxShadow: "2px 4px 4px 1px rgba(0, 0, 0, 0.1)",
+              }}
               key={id}
               onClick={() => showDetail(id)}
             >
@@ -84,8 +87,11 @@ export default function backOffice() {
               </Col>
               <Link to={`/backoffice/${id}`}>
                 <button
+                  style={{
+                    marginRight: "0.25rem",
+                  }}
                   type="button"
-                  className="my-3  btn btn-primary position-absolute bottom-0 end-0"
+                  className=" my-2 mx-2 btn btn-primary position-absolute bottom-0 end-0"
                 >
                   Ändra
                 </button>
