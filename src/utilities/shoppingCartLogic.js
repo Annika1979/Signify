@@ -31,8 +31,9 @@ export function add(productToAdd, quantityToAdd = 1) {
       product: productToAdd,
       quantity: quantityToAdd
     });
-  }
+  } 
   save();
+  console.log(row, "row")
 }
 
 export function remove(productToRemove) {
