@@ -3,11 +3,10 @@ import { useStates } from '../utilities/states';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { scrollRestore } from '../utilities/scrollBehavior';
-import CategorySelect from '../CategorySelect';
-import PriceSelect from '../PriceSelect';
+import CategorySelect from '../utilities/CategorySelect';
 import { sweFormat } from '../utilities/currencyFormatter';
 import { missingImage } from '../utilities/handleMissingImage';
-import FilterPrice from '../filterPrice';
+
 
 
 let oldSearchTerm="";

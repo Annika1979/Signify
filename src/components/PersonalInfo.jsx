@@ -1,7 +1,49 @@
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { factory } from "../utilities/FetchHelper"
+import { useState } from "react";
+import React from "react";
+import { useStates } from "../utilities/states";
+import { useParams, useNavigate } from "react-router-dom";
+
+const {Order} = factory;
+
 
 export default function PersonalInfo() {
+  let s = useStates("main");
+  let navigate = useNavigate();
+  
+      
+ 
+  
+
+   let state = useStates({
+     newOrder: new Order({
+      name: 'grgamel',
+      description: 'cdcdcd',
+      price: '122332',
+      categoryId: "1"
+      
+     
+     
+    })
+   });
+  
+ 
+    
+  async function save() {
+    // Save to db
+    await state.newOrder.save()
+    // Navigate to detail page
+    
+    alert("Kategori ändrad!")
+    // navigate(`/backoffice/`);
+  }
+  
+  
+  
+  console.log(state.newOrder)
+              
   return (
     <Container
       style={{
@@ -48,7 +90,7 @@ export default function PersonalInfo() {
         </Row>
 
         <Link className="float-end text-decoration-none" to={`/`}>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" onClick={save} >
             Slutför Köp
           </Button>
         </Link>

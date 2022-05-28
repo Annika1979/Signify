@@ -5,6 +5,10 @@ import { empty, remove, save } from "../utilities/shoppingCartLogic";
 import { useEffect } from "react";
 import { sweFormat } from "../utilities/currencyFormatter";
 
+
+
+
+
 export default function ShoppingCart() {
   let s = useStates("main");
 
@@ -12,11 +16,17 @@ export default function ShoppingCart() {
     (acc, row) => acc + row.quantity * row.product.price,
     0
   );
+  
+   
+  
 
   useEffect(() => {
     // Save the cart contents (on quantity changes)
     save();
   });
+  
+  
+ 
 
   return (
     <Container
@@ -72,8 +82,10 @@ export default function ShoppingCart() {
                     </td>
                     <td className="text-end" style={{ width: 100 }}>
                       {sweFormat(row.quantity * row.product.price)}
+
                     </td>
                   </tr>
+   
                 ))}
                 <tr className="fw-bold">
                   <td>Summa</td>
@@ -86,8 +98,9 @@ export default function ShoppingCart() {
           ) : (
             <p>Kundvagnen är tom...</p>
           )}
+          
         </Col>
-      </Row>
+      </Row> 
       <Row>
         <Col>
           <Link className="float-end text-decoration-none" to={`/ProduktLista`}>
@@ -104,7 +117,9 @@ export default function ShoppingCart() {
               Tillbaka
             </button>
           </Link>
+          
           <Link className="float-end text-decoration-none" to={`/PersonalInfo`}>
+            
             <button
               style={{
                 backgroundColor: "purple",
@@ -114,11 +129,12 @@ export default function ShoppingCart() {
               }}
               type="button"
               className="mb-5 btn btn-primary float-end me-3"
-            >
+              
+          >
               Gå till betalning
             </button>
           </Link>
-
+           )
           {s.cartContents.length ? (
             <button
               style={{
@@ -139,5 +155,7 @@ export default function ShoppingCart() {
         </Col>
       </Row>
     </Container>
+     
   );
+ 
 }
