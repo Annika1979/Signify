@@ -2,6 +2,8 @@ import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 
+//import UploadPicture from "./Picture";
+
 import CategoryAdd from '../utilities/addNewCategory';
 
 import { factory } from "../utilities/FetchHelper"
@@ -125,6 +127,8 @@ export default function AddProduct() {
       >
         Spara
       </button>
+
+      
     </Container>
   );
 }
