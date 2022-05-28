@@ -17,11 +17,13 @@ export default function backOffice() {
   }
 
   return (
-    <Container className="productList">
+    <Container xs={2} md={4} lg={6} className="productList">
       <Link to={`/backoffice/lagg-till`}>
-        <button type="button" className="my-3 btn btn-primary float-end">
-          Lägg till
-        </button>
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" className=" btn btn-primary">
+            Lägg till
+          </button>
+        </div>
       </Link>
       <Row>
         <Col>
@@ -43,7 +45,13 @@ export default function backOffice() {
           )
           .map(({ id, name, description, price }) => (
             <Card
-              style={{ width: "20rem", margin: "0.25rem" }}
+              className="mx-auto"
+              style={{
+                width: "20rem",
+                margin: "0.6rem",
+                paddingTop: "20px",
+                boxShadow: "2px 4px 4px 1px rgba(0, 0, 0, 0.1)",
+              }}
               key={id}
               onClick={() => showDetail(id)}
             >
@@ -64,8 +72,11 @@ export default function backOffice() {
               </Col>
               <Link to={`/backoffice/${id}`}>
                 <button
+                  style={{
+                    marginRight: "0.25rem",
+                  }}
                   type="button"
-                  className="my-3  btn btn-primary position-absolute bottom-0 end-0"
+                  className=" my-2 mx-2 btn btn-primary position-absolute bottom-0 end-0"
                 >
                   Ändra
                 </button>
