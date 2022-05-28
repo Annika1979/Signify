@@ -2,9 +2,13 @@ import { useStates } from "../utilities/states";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { scrollRestore } from "../utilities/scrollBehavior";
-import CategorySelect from "../CategorySelect";
+import CategorySelect from "../utilities/CategorySelect";
 import { sweFormat } from "../utilities/currencyFormatter";
 import { missingImage } from "../utilities/handleMissingImage";
+import { useEffect } from "react";
+import { factory } from "../utilities/FetchHelper";
+
+const { Product, Categorie: Category } = factory;
 
 export default function backOffice() {
   scrollRestore();
@@ -16,6 +20,16 @@ export default function backOffice() {
     navigate(`/backoffice/${id}`);
   }
 
+  useEffect(() => {
+    (async () => {
+      // get the categories from the db
+
+      // get the products from the db
+      s.products = await Product.find();
+      s.categories = await Category.find();
+    })();
+  }, []);
+
   return (
     <Container xs={2} md={4} lg={6} className="productList">
       <Link to={`/backoffice/lagg-till`}>
@@ -25,6 +39,7 @@ export default function backOffice() {
           </button>
         </div>
       </Link>
+
       <Row>
         <Col>
           <h3>Välj Kategori</h3>

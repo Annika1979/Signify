@@ -1,9 +1,7 @@
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
-import Sign from "../../public/images/products/SigniFy.png";
-import Home from "../../public/images/products/home.png";
-import Cart from "../../public/images/products/shoppingcart.png";
-import CategorySelect from "../CategorySelect";
+//import Sign from '../../public/images/products/SigniFy.png'
+
 import { useStates } from "../utilities/states";
 
 export default function Header() {

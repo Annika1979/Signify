@@ -1,4 +1,4 @@
-import { useStates } from "./utilities/states";
+import { useStates } from "./states";
 
 export default function CategorySelector(props) {
   let s = useStates("main");

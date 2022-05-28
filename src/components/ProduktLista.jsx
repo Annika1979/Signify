@@ -3,12 +3,9 @@ import { useStates } from "../utilities/states";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { scrollRestore } from "../utilities/scrollBehavior";
-import CategorySelect from "../CategorySelect";
-import PriceSelect from "../PriceSelect";
+import CategorySelect from "../utilities/CategorySelect";
 import { sweFormat } from "../utilities/currencyFormatter";
 import { missingImage } from "../utilities/handleMissingImage";
-import FilterPrice from "../filterPrice";
-import InputGroup from "react-bootstrap/InputGroup";
 
 let oldSearchTerm = "";
 
@@ -22,6 +19,13 @@ export default function ProduktLista() {
     }
     if (showPrice === "Dyraste") {
       s.products.sort((a, b) => (a.price < b.price ? 1 : -1));
+    }
+    if (showPrice === "A-Ö") {
+      s.products.sort((a, b) => {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+        if (b.name.toLowerCase() > a.name.toLowerCase()) return -1;
+        return 0;
+      });
     }
   }
   scrollRestore();
@@ -45,6 +49,10 @@ export default function ProduktLista() {
     );
   }, [searchTerm]);
 
+  useEffect(() => {
+    sortPrice();
+  }, [showPrice]);
+
   return (
     <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
       <Container>
@@ -62,11 +70,11 @@ export default function ProduktLista() {
               style={{ height: "25px", width: "8rem" }}
               onChange={(event) => {
                 setShowPrice(event.target.value);
-                sortPrice();
               }}
             >
               <option>Billigaste</option>
               <option>Dyraste</option>
+              <option>A-Ö</option>
             </select>
           </Col>
           <Col xs={6}>
@@ -78,7 +86,6 @@ export default function ProduktLista() {
             />
           </Col>
         </Row>
-
         <Row xs={2} md={4} lg={6}>
           {" "}
           {s.products

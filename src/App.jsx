@@ -14,10 +14,13 @@ import Kundvagn from "./components/Kundvagn";
 import Footer from "./components/Footer";
 import BackOffice from "./components/BackOffice";
 import AddProduct from "./components/addProduct";
+import AddCategory from "./components/addCategory";
 import PersonalInfo from "./components/PersonalInfo";
+import CategoryEdit from "./components/CategoryEdit";
+import BackofficeEditList from "./components/BackofficeEditList";
 
 // Create classes used for fetching from the REST-api
-const { Product, Categorie: Category } = factory;
+const { Product, Categorie: Category,Order} = factory;
 let oldSearchTerm = "";
 export default function App() {
   let s = useStates("main", {
@@ -28,8 +31,9 @@ export default function App() {
     chosenPrice: "",
     allProducts: [],
     searchTerm: "",
+    orders:[]
   });
-  window.s = s;
+  
 
   useEffect(() => {
     if (s.searchTerm === oldSearchTerm) {
@@ -55,7 +59,7 @@ export default function App() {
     })();
   }, []);
 
-  return s.products.length === 0 ? null : (
+  return s.allProducts.length === 0 ? null : (
     <Router>
       <Header />
       <Routes>
@@ -64,7 +68,10 @@ export default function App() {
         <Route path="/PersonalInfo" element={<PersonalInfo />} />
         <Route path="/ProduktLista" element={<ProduktLista />} />
         <Route path="/Backoffice" element={<BackOffice />} />
-        <Route path="/Backoffice/lagg-till" element={<AddProduct />} />
+        <Route path="/Backoffice/Edit" element={<BackofficeEditList />} />
+        <Route path="/Backoffice/lagg-till-produkt" element={<AddProduct />} />
+        <Route path="/Backoffice/lagg-till-kategori" element={<AddCategory />} />
+        <Route path="/Backoffice/andra-kategori" element={<CategoryEdit />} />
 
         <Route path="/product-detail/:id" element={<ProductDetail />} />
         <Route path="/backoffice/:id" element={<ProductEdit />} />

@@ -40,6 +40,8 @@ export class FetchHelper {
     }
   }
 
+ 
+
   async Tabort() {
     if (!this.id) { return { error: 'No id, can not delete' } };
     return await (await fetch(`/api/${this.route}/${this.id}`, {

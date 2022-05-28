@@ -1,19 +1,15 @@
 import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-
-//import UploadPicture from "./Picture";
-
-import CategoryAdd from '../utilities/addNewCategory';
-
 import { factory } from "../utilities/FetchHelper"
 import React from 'react'
+import CategoryAdd from '../utilities/addNewCategory';
 
 
 
-const { Product } = factory;
+const { Categorie: Category } = factory;
 
-export default function AddProduct() {
+export default function CategoryEdit() {
   
 
  
@@ -23,21 +19,30 @@ export default function AddProduct() {
   
   // lokalt state för denna komponent
   let state = useStates({
-    newProduct: new Product({
-      name: '',
-      description: '',
-      price: '',
-      categoryId: ""
+    newCategory: new Category({
+      id:'s.categories.id',
+      name: ''
+     
     })
   });
- console.log(state.newProduct)
+ console.log(state.newCategory)
   async function save() {
     // Save to db
-    await state.newProduct.save()
+    await state.newCategory.save()
     // Navigate to detail page
     
-    alert("Saved")
+    alert("Kategori ändrad!")
     // navigate(`/backoffice/`);
+  }
+
+  async function Tabort(){
+
+    await state.newCategory.Tabort();
+    
+    // Navigate to detail page
+    
+   alert("Kategori Raderad!")
+
   }
   
   function routeBack(){
@@ -58,46 +63,16 @@ export default function AddProduct() {
   ) : (
     <Container>
       {/* Online */}
-      
+        <CategoryAdd bindTo={[state.newCategory, "id"]} />
       <Row>
         <Col>
           <label className="mt-3">
-            Produkt:
-            <input className="form-control" { ...state.newProduct.bind("name")} />
+            Nytt namn på kategori
+            <input className="form-control" { ...state.newCategory.bind("name")} />
           </label>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <label className="mt-3">
-            Beskrivning:
-            <textarea
-              className="form-control"
-              {...state.newProduct.bind("description")}
-            />
-          </label>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <label className="mt-3">
-            Pris:
-            <input
-              type="number"
-              className="form-control"
-              {...state.newProduct.bind("price")}
-            />
-          </label>
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        <Col>
-          <label>
-            Kategori:&nbsp;
-            <CategoryAdd bindTo={[state.newProduct, 'categoryId']} />
-          </label>
-        </Col>
-      </Row>
+     
       <button
         style={{
           backgroundColor: "purple",
@@ -123,12 +98,26 @@ export default function AddProduct() {
         type="button"
         onClick={save}
         className="my-4 btn btn-primary float-end"
-        {...state.newProduct.bind("id")}
+        {...state.newCategory.bind("id")}
       >
-        Spara
-      </button>
+        Uppdatera
+        </button>
 
-      
+
+        <button
+           style={{
+          backgroundColor: "purple",
+          borderRadius: "10px",
+          border: "none",
+          color: "white",
+          marginRight: "5px",
+        }}
+        type="button"
+        onClick={()=>Tabort()}
+        className="my-4 btn btn-primary float-end"
+      >
+        Radera
+      </button>
     </Container>
   );
 }
