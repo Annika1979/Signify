@@ -51,6 +51,41 @@ module.exports = function setupRESTapi(app, databaseConnection) {
       `);
     });
 
+
+
+// endpoint to handle formData uploads
+app.post('/api/upload', (req, res) => {
+  // uses npm module 'formidable' to read the formData
+  const form = formidable();
+
+  form.parse(req, (err, fields, file) => {
+    if (err) {
+      res.end(err);
+      return;
+    }
+
+    try {
+      console.log('location', JSON.parse(fields.location || {}));
+      console.log('address', JSON.parse(fields.address || {}));
+    }
+    catch (e) {
+      console.log('location and address not recieved');
+    }
+
+    // get the file, from file
+    file = file.file
+
+    // open file with 'fs' to enable it to be 
+    // saved as a file
+    let fileData = fs.readFileSync(file.path)
+    fs.writeFileSync(__dirname + '../public/images/products' + file.name, fileData)
+
+    res.json({ fields, file });
+  });
+});
+
+
+
     let putAndPatch = (req, res) => {
       runQuery(name, req, res, { ...req.body, ...req.params }, `
         UPDATE ${name}
@@ -76,6 +111,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
     res.json({ _error: 'No such route!' });
   });
 
+
   app.use((error, req, res, next) => {
     if (error) {
       let result = {
@@ -87,5 +123,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
       next();
     }
   });
+
+ 
 
 }
