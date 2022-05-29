@@ -2,6 +2,7 @@ import { useStates } from "./utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from "./utilities/CategorySelect";
+import { Link } from "react-router-dom";
 
 export default function ProductDetail() {
   let s = useStates("main");
@@ -60,6 +61,7 @@ export default function ProductDetail() {
               Tillbaka
             </button>
           </Link>
+
         </Col>
       </Row>
     </Container>
