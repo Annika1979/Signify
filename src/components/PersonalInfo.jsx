@@ -32,7 +32,7 @@ export default function PersonalInfo() {
 
   console.log(state.newOrder);
 
-  return (
+  return navigator.onLine ?
     <Container
       style={{
         width: "50rem",
@@ -76,22 +76,32 @@ export default function PersonalInfo() {
             <Form.Control type="email" placeholder="Emailadress" />
           </Form.Group>
         </Row>
-
-        <Link className="float-end text-decoration-none" to={`/`}>
-          <Button
-            style={{
-              backgroundColor: "rgba(102, 10, 59, 1)",
-              borderRadius: "10px",
-              border: "none",
-              color: "white",
-            }}
-            type="submit"
-            onClick={save}
-          >
-            Slutför Köp
-          </Button>
-        </Link>
+        {navigator.onLine ? (
+          <Link className="float-end text-decoration-none" to={`/`}>
+            <Button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="submit"
+              onClick={save}
+            >
+              Slutför Köp
+            </Button>
+          </Link>
+        ) : (null)}
       </Form>
     </Container>
-  );
-}
+    : (
+      <Container >
+        <Row>
+          <Col>
+            <h4>Du kan tyvärr inte avsluta ditt köp just nu, försök igen när du är onilne.</h4>
+          </Col>
+        </Row>
+      </Container>
+    )
+
+};
