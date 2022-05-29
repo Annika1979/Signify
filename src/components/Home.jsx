@@ -1,8 +1,8 @@
 import { Container, Carousel, Row, Col } from "react-bootstrap";
 
-import neonSign from "../../dist/images/home_neon.jpg";
-import holaSign from "../../dist/images/home_hola.jpg";
-import flaggorSign from "../../dist/images/flaggor.jpg";
+import neonSign from "/images/products/home_neon.jpg";
+import holaSign from "/images/products/home_hola.jpg";
+import flaggorSign from "/images/products/flaggor.jpg";
 
 export default function StartPage() {
   return (

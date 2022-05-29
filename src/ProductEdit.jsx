@@ -1,7 +1,7 @@
 import { useStates } from "./utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import CategorySelect from './utilities/CategorySelect';
+import CategorySelect from "./utilities/CategorySelect";
 
 export default function ProductDetail() {
   let s = useStates("main");
@@ -19,35 +19,29 @@ export default function ProductDetail() {
     await product.save();
     // Navigate to detail page
     navigate(`/backoffice/`);
-    
   }
-   
 
-  async function Tabort(){
-
+  async function Tabort() {
     await product.Tabort();
-    
-    // Navigate to detail page
-    
-    navigate(`/backoffice/`);
 
+    // Navigate to detail page
+
+    navigate(`/backoffice/`);
   }
 
   // Behöver uppdatera sidan efter att en produkt tagits bort. Tillfälligt lagt till en nödlösning med window reload.
 
-  async function find(){
+  async function find() {
     await product.find();
   }
-   function routeBack(){
-    
-    navigate('/backoffice')
-    
-   }
+  function routeBack() {
+    navigate("/backoffice");
+  }
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
 
   return !navigator.onLine ? (
-    <Container >
+    <Container>
       {/* Offline */}
       <Row>
         <Col>
@@ -56,7 +50,12 @@ export default function ProductDetail() {
       </Row>
     </Container>
   ) : (
-    <Container style={{backgroundColor:"rgba(255, 204, 255,0.5 )", borderRadius:"10px"}}>
+    <Container
+      style={{
+        backgroundColor: "rgb(222, 226, 226)",
+        borderRadius: "10px",
+      }}
+    >
       {/* Online */}
       <Row>
         <Col>
@@ -108,33 +107,50 @@ export default function ProductDetail() {
         <Col>
           <label className="mb-5">
             Kategori:&nbsp;
-            <CategorySelect  bindTo={[product, "categoryId"]} />
+            <CategorySelect bindTo={[product, "categoryId"]} />
           </label>
         </Col>
       </Row>
       <button
+        style={{
+          backgroundColor: "rgba(102, 10, 59, 1)",
+          borderRadius: "10px",
+          border: "none",
+          color: "white",
+        }}
         type="button"
         onClick={routeBack}
-        className="my-4 btn btn-primary float-end"
+        className="my-4 mx-1 btn float-end"
       >
         Tillbaka
       </button>
 
       <button
+        style={{
+          backgroundColor: "rgba(102, 10, 59, 1)",
+          borderRadius: "10px",
+          border: "none",
+          color: "white",
+        }}
         type="button"
         onClick={save}
-        className="my-4 btn btn-primary float-end"
+        className="my-4 mx-1 btn  float-end"
       >
         Spara
       </button>
       <button
+        style={{
+          backgroundColor: "rgba(102, 10, 59, 1)",
+          borderRadius: "10px",
+          border: "none",
+          color: "white",
+        }}
         type="button"
-        onClick={()=>Tabort()}
-        className="my-4 btn btn-primary float-end"
+        onClick={() => Tabort()}
+        className="my-4 mx-1 btn float-end"
       >
-        Delete
+        Radera
       </button>
-     
     </Container>
   );
 }

@@ -43,11 +43,23 @@ export default function ProductDetail() {
   }
 
   return (
-    <Container style={{ backgroundColor:"white", borderRadius:"10px" }}className="productList">
+    <Container
+      style={{ backgroundColor: "white", borderRadius: "10px" }}
+      className="productList"
+    >
       <Row>
         <Col>
           <Link to={`/ProduktLista`}>
-            <button style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white" }} type="button" className="my-4 btn btn-primary">
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="button"
+              className="my-4 btn btn-primary"
+            >
               Tillbaka
             </button>
             <hr />
@@ -81,9 +93,7 @@ export default function ProductDetail() {
         </Col>
       </Row>
       <Row>
-        <Col>
-         
-        </Col>
+        <Col></Col>
       </Row>
       <Row>
         <Col className="mt-2">
@@ -91,7 +101,12 @@ export default function ProductDetail() {
             type="button"
             onClick={buy}
             className="btn btn-primary float-end mb-5"
-            style={{ backgroundColor:"purple", borderRadius:"10px", border: "none", color:"white" }}
+            style={{
+              backgroundColor: "rgba(102, 10, 59, 1)",
+              borderRadius: "10px",
+              border: "none",
+              color: "white",
+            }}
           >
             Köp
           </button>
