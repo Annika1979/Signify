@@ -54,18 +54,18 @@ export default function ProduktLista() {
   }, [showPrice]);
 
   return (
-    <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
+    <div className="d-flex flex-column " style={{ minHeight: "100vh" }}>
       <Container>
-        <Row className="mb-2 mx-auto">
+        <Row className="mb-2  mx-auto d-grid gap-2 d-md-flex justify-content-center justify-content-md-start">
           <Col>
             <h3 style={{ color: "black" }}>Välj Kategori</h3>
           </Col>
         </Row>
-        <Row className="mb-2 mx-auto">
-          <Col xs={4} md={8} className="mb-2">
+        <Row className="mb-2 mx-auto d-grid gap-2 d-md-flex justify-content-center justify-content-md-start">
+          <Col sm={4} md={8} className="mb-2">
             <CategorySelect showAllOption bindTo={[s, "chosenCategoryId"]} />
           </Col>
-          <Col xs={4} md={6} className="mb-2">
+          <Col sm={4} md={6} className="mb-2">
             <select
               style={{ height: "25px", width: "8rem" }}
               onChange={(event) => {
@@ -79,7 +79,7 @@ export default function ProduktLista() {
           </Col>
           <Col xs={6}>
             <input
-              style={{ height: "25px" }}
+              style={{ height: "25px", width: "19rem" }}
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
               placeholder="Sök"
@@ -98,7 +98,7 @@ export default function ProduktLista() {
               <Card
                 className="mx-auto "
                 style={{
-                  width: "20rem",
+                  width: "19rem",
                   margin: "0.6rem",
                   paddingTop: "20px",
                   boxShadow: "2px 4px 4px 1px rgba(0, 0, 0, 0.1)",
