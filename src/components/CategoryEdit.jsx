@@ -1,52 +1,43 @@
 import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import { factory } from "../utilities/FetchHelper"
-import React from 'react'
-import CategoryAdd from '../utilities/addNewCategory';
-
-
+import { factory } from "../utilities/FetchHelper";
+import React from "react";
+import CategoryAdd from "../utilities/addNewCategory";
 
 const { Categorie: Category } = factory;
 
 export default function CategoryEdit() {
-  
-
- 
-  
-  let s = useStates("main")
+  let s = useStates("main");
   let navigate = useNavigate();
-  
+
   // lokalt state för denna komponent
   let state = useStates({
     newCategory: new Category({
-      id:'s.categories.id',
-      name: ''
-     
-    })
+      id: "s.categories.id",
+      name: "",
+    }),
   });
- console.log(state.newCategory)
+  console.log(state.newCategory);
   async function save() {
     // Save to db
-    await state.newCategory.save()
+    await state.newCategory.save();
     // Navigate to detail page
-    
-    alert("Kategori ändrad!")
+
+    alert("Kategori ändrad!");
     // navigate(`/backoffice/`);
   }
 
-  async function Tabort(){
-
+  async function Tabort() {
     await state.newCategory.Tabort();
-    
-    // Navigate to detail page
-    
-   alert("Kategori Raderad!")
 
+    // Navigate to detail page
+
+    alert("Kategori Raderad!");
   }
-  
-  function routeBack(){
-    navigate('/backoffice/Edit')
+
+  function routeBack() {
+    navigate("/backoffice/Edit");
   }
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
@@ -61,21 +52,32 @@ export default function CategoryEdit() {
       </Row>
     </Container>
   ) : (
-    <Container>
+    <Container
+      style={{
+        backgroundColor: "white",
+        borderRadius: "10px",
+        maxWidth: "85%",
+        height: "200px",
+      }}
+      className=" p-3 mh-50"
+    >
       {/* Online */}
-        <CategoryAdd bindTo={[state.newCategory, "id"]} />
+      <CategoryAdd bindTo={[state.newCategory, "id"]} />
       <Row>
         <Col>
           <label className="mt-3">
             Nytt namn på kategori
-            <input className="form-control" { ...state.newCategory.bind("name")} />
+            <input
+              className="form-control"
+              {...state.newCategory.bind("name")}
+            />
           </label>
         </Col>
       </Row>
-     
+
       <button
         style={{
-          backgroundColor: "purple",
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",
@@ -89,7 +91,7 @@ export default function CategoryEdit() {
 
       <button
         style={{
-          backgroundColor: "purple",
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",
@@ -101,19 +103,18 @@ export default function CategoryEdit() {
         {...state.newCategory.bind("id")}
       >
         Uppdatera
-        </button>
+      </button>
 
-
-        <button
-           style={{
-          backgroundColor: "purple",
+      <button
+        style={{
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",
           marginRight: "5px",
         }}
         type="button"
-        onClick={()=>Tabort()}
+        onClick={() => Tabort()}
         className="my-4 btn btn-primary float-end"
       >
         Radera

@@ -2,41 +2,33 @@ import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 
-
-import { factory } from "../utilities/FetchHelper"
-import React from 'react'
-
-
+import { factory } from "../utilities/FetchHelper";
+import React from "react";
 
 const { Categorie: Category } = factory;
 
 export default function AddCategory() {
-  
-
- 
-  
-  let s = useStates("main")
+  let s = useStates("main");
   let navigate = useNavigate();
-  
+
   // lokalt state för denna komponent
   let state = useStates({
     newCategory: new Category({
-      name: '',
-     
-    })
+      name: "",
+    }),
   });
- console.log(state.newCategory)
+  console.log(state.newCategory);
   async function save() {
     // Save to db
-    await state.newCategory.save()
+    await state.newCategory.save();
     // Navigate to detail page
-    
-    alert("Saved")
+
+    alert("Saved");
     // navigate(`/backoffice/`);
   }
-  
-  function routeBack(){
-    navigate('/backoffice/Edit')
+
+  function routeBack() {
+    navigate("/backoffice/Edit");
   }
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
@@ -51,21 +43,32 @@ export default function AddCategory() {
       </Row>
     </Container>
   ) : (
-    <Container>
+    <Container
+      style={{
+        backgroundColor: "white",
+        borderRadius: "10px",
+        maxWidth: "85%",
+        height: "200px",
+      }}
+      className=" p-3 mh-50"
+    >
       {/* Online */}
-      
+
       <Row>
         <Col>
           <label className="mt-3">
-            Produkt:
-            <input className="form-control" { ...state.newCategory.bind("name")} />
+            Kategori:
+            <input
+              className="form-control"
+              {...state.newCategory.bind("name")}
+            />
           </label>
         </Col>
       </Row>
-     
+
       <button
         style={{
-          backgroundColor: "purple",
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",
@@ -79,7 +82,7 @@ export default function AddCategory() {
 
       <button
         style={{
-          backgroundColor: "purple",
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",

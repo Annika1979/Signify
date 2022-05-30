@@ -4,44 +4,38 @@ import { useParams, useNavigate } from "react-router-dom";
 
 //import UploadPicture from "./Picture";
 
-import CategoryAdd from '../utilities/addNewCategory';
+import CategoryAdd from "../utilities/addNewCategory";
 
-import { factory } from "../utilities/FetchHelper"
-import React from 'react'
-
-
+import { factory } from "../utilities/FetchHelper";
+import React from "react";
 
 const { Product } = factory;
 
 export default function AddProduct() {
-  
-
- 
-  
-  let s = useStates("main")
+  let s = useStates("main");
   let navigate = useNavigate();
-  
+
   // lokalt state för denna komponent
   let state = useStates({
     newProduct: new Product({
-      name: '',
-      description: '',
-      price: '',
-      categoryId: ""
-    })
+      name: "",
+      description: "",
+      price: "",
+      categoryId: "",
+    }),
   });
- console.log(state.newProduct)
+  console.log(state.newProduct);
   async function save() {
     // Save to db
-    await state.newProduct.save()
+    await state.newProduct.save();
     // Navigate to detail page
-    
-    alert("Saved")
+
+    alert("Saved");
     // navigate(`/backoffice/`);
   }
-  
-  function routeBack(){
-    navigate('/backoffice/Edit')
+
+  function routeBack() {
+    navigate("/backoffice/Edit");
   }
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
@@ -56,14 +50,25 @@ export default function AddProduct() {
       </Row>
     </Container>
   ) : (
-    <Container>
+    <Container
+      style={{
+        backgroundColor: "white",
+        borderRadius: "10px",
+        maxWidth: "85%",
+        height: "400px",
+      }}
+      className=" p-3 mh-50 mb-3"
+    >
       {/* Online */}
-      
+
       <Row>
         <Col>
           <label className="mt-3">
             Produkt:
-            <input className="form-control" { ...state.newProduct.bind("name")} />
+            <input
+              className="form-control"
+              {...state.newProduct.bind("name")}
+            />
           </label>
         </Col>
       </Row>
@@ -94,13 +99,13 @@ export default function AddProduct() {
         <Col>
           <label>
             Kategori:&nbsp;
-            <CategoryAdd bindTo={[state.newProduct, 'categoryId']} />
+            <CategoryAdd bindTo={[state.newProduct, "categoryId"]} />
           </label>
         </Col>
       </Row>
       <button
         style={{
-          backgroundColor: "purple",
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",
@@ -114,7 +119,7 @@ export default function AddProduct() {
 
       <button
         style={{
-          backgroundColor: "purple",
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",
@@ -127,8 +132,6 @@ export default function AddProduct() {
       >
         Spara
       </button>
-
-      
     </Container>
   );
 }
