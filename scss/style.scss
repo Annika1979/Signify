@@ -85,3 +85,10 @@ label {
   animation: textFlow 8s ease;
   font-size: 120%;
 }
+
+.product-edit video, .product-edit canvas, .product-edit img {
+  width: 320px;
+  height: 240px;
+  border: 1px solid #000;
+  display: block;
+}
