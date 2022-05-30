@@ -1,12 +1,29 @@
 import { useStates } from "./utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import CategorySelect from "./utilities/CategorySelect";
+import CategorySelect from './utilities/CategorySelect';
+import { initializeMedia, captureImage, uploadImage, getGeolocation} from './utilities/imageCapture';
 
 export default function ProductDetail() {
+ 
+
+
+
   let s = useStates("main");
   let { id } = useParams();
   let navigate = useNavigate();
+
+  // a local state only for this component
+  let l = useStates({
+    captureMode: true,
+    replaceImage: false
+  });
+
+  // initialize media (start talking to camera)
+  // when the component loads
+  useStates(() => {
+    initializeMedia();
+  }, []);
 
   let product = s.products.find((x) => x.id === +id);
   if (!product) {
@@ -17,9 +34,19 @@ export default function ProductDetail() {
   async function save() {
     // Save to db
     await product.save();
-    // Navigate to detail page
+    // Upload image if the image should be replaced
+    l.replaceImage && await uploadImage(id);
+   
     navigate(`/backoffice/`);
   }
+   
+  function takeImage() {
+    captureImage();
+    getGeolocation();
+    l.captureMode = false;
+  }
+
+
 
   async function Tabort() {
     await product.Tabort();
@@ -50,13 +77,25 @@ export default function ProductDetail() {
       </Row>
     </Container>
   ) : (
-    <Container
+    <Container 
+    className="product-edit"
       style={{
         backgroundColor: "rgb(222, 226, 226)",
         borderRadius: "10px",
       }}
     >
       {/* Online */}
+      {l.replaceImage ?
+        <Row><Col>
+          <video style={{ display: l.captureMode ? 'block' : 'none',}} autoPlay></video>
+          <canvas width="320" height="240" style={{ display: !l.captureMode ? 'block' : 'none' }}></canvas>
+          <button className="btn btn-primary mt-3 mb-5" onClick={takeImage}>Capture</button>
+          <div id="location-display"></div>
+          <input type="file" accept="image/*" id="image-picker"/>
+        </Col></Row> : <Row><Col>
+          <img src={`/images/products/${id}.jpg`} />
+          <button className="btn btn-primary mt-3 mb-5" onClick={() => l.replaceImage = true}>Replace image</button>
+        </Col></Row>}
       <Row>
         <Col>
           <h1>{name}</h1>
