@@ -2,14 +2,17 @@ import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { factory } from "../utilities/FetchHelper";
-import React from "react";
+
 import CategoryAdd from "../utilities/addNewCategory";
+import React, { useState, useEffect } from "react";
 
 const { Categorie: Category } = factory;
 
 export default function CategoryEdit() {
   let s = useStates("main");
   let navigate = useNavigate();
+
+  
 
   // lokalt state för denna komponent
   let state = useStates({
@@ -27,6 +30,16 @@ export default function CategoryEdit() {
     alert("Kategori ändrad!");
     // navigate(`/backoffice/`);
   }
+
+   useEffect(() => {
+    (async () => {
+      // get the categories from the db
+
+      // get the products from the db
+     
+      s.categories = await Category.find();
+    })();
+  }, [state.newCategory]);
 
   async function Tabort() {
     await state.newCategory.Tabort();

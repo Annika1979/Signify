@@ -68,8 +68,8 @@ export default function backOffice() {
         {s.products
           .filter(
             (product) =>
-              s.chosenCategoryId === 0 /*all*/ ||
-              s.chosenCategoryId === product.categoryId
+              +s.chosenCategoryId === 0 /*all*/ ||
+              +s.chosenCategoryId === product.categoryId
           )
           .map(({ id, name, description, price }) => (
             navigator.onLine ? (
