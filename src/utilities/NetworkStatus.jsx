@@ -28,7 +28,7 @@ function NetworkStatus() {
 
       {!offline ? (
         <div className='offlineduvet'>
-          <h1 className='text2'>Backoffice, samt beställningar är förnärvarande "offline"</h1>
+          <h1 className='text2'>Shoppen är förnärvarande "Offline"</h1>
         </div>
 
       ) : (
