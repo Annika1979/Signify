@@ -79,7 +79,7 @@ export default function ProduktLista() {
         {s.products
           .filter(
             (product) =>
-              s.chosenCategoryId === 0 /*all*/ ||
+              +s.chosenCategoryId === 0 /*all*/ ||
               +s.chosenCategoryId === product.categoryId
           )
           .map(({ id, name, description, price }) => (
