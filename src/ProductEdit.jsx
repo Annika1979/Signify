@@ -69,7 +69,9 @@ export default function ProductDetail() {
   // console.log("navigator.onLine", navigator.onLine);
 
   return !navigator.onLine ? (
-    <Container>
+    <Container style={{
+      marginBottom: "100px"
+    }}>
       {/* Offline */}
       <Row>
         <Col>

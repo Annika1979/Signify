@@ -20,7 +20,7 @@ import CategoryEdit from "./components/CategoryEdit";
 import BackofficeEditList from "./components/BackofficeEditList";
 
 // Create classes used for fetching from the REST-api
-const { Product, Categorie: Category,Order} = factory;
+const { Product, Categorie: Category, Order } = factory;
 let oldSearchTerm = "";
 export default function App() {
   let s = useStates("main", {
@@ -31,9 +31,9 @@ export default function App() {
     chosenPrice: "",
     allProducts: [],
     searchTerm: "",
-    orders:[]
+    orders: []
   });
-  
+
 
   useEffect(() => {
     if (s.searchTerm === oldSearchTerm) {
