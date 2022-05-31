@@ -1,6 +1,6 @@
 import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { factory } from "../utilities/FetchHelper";
 import React from "react";
 import CategoryAdd from "../utilities/addNewCategory";
@@ -34,6 +34,10 @@ export default function CategoryEdit() {
     // Navigate to detail page
 
     alert("Kategori Raderad!");
+
+    // Navigate to detail page
+
+    alert("Kategori Raderad!");
   }
 
   function routeBack() {
@@ -47,7 +51,24 @@ export default function CategoryEdit() {
       {/* Offline */}
       <Row>
         <Col>
-          <h4>Du är offline! Du kan endast ändra när du är online.</h4>
+          <h4>
+            Du är offline! Du kan endast redigera till en kategori när du är
+            online.
+          </h4>
+          <Link to={`/backoffice`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="button"
+              className="my-3 mx-1 btn btn-primary float-end"
+            >
+              Tillbaka
+            </button>
+          </Link>
         </Col>
       </Row>
     </Container>

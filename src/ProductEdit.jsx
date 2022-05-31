@@ -1,13 +1,15 @@
 import { useStates } from "./utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import CategorySelect from "./utilities/CategorySelect";
 import {
   initializeMedia,
   captureImage,
   uploadImage,
   getGeolocation,
+  pickImage,
 } from "./utilities/imageCapture";
+import { useEffect } from "react";
 
 export default function ProductDetail() {
   let s = useStates("main");
@@ -18,11 +20,12 @@ export default function ProductDetail() {
   let l = useStates({
     captureMode: true,
     replaceImage: false,
+    productImage: `/images/products/${id}.jpg`,
   });
 
   // initialize media (start talking to camera)
   // when the component loads
-  useStates(() => {
+  useEffect(() => {
     initializeMedia();
   }, []);
 
@@ -67,11 +70,31 @@ export default function ProductDetail() {
   // console.log("navigator.onLine", navigator.onLine);
 
   return !navigator.onLine ? (
-    <Container>
+    <Container
+      style={{
+        marginBottom: "100px",
+      }}
+    >
       {/* Offline */}
       <Row>
         <Col>
-          <h4>Du är offline! Du kan endast ändra när du är online.</h4>
+          <h4>
+            Du är offline! Du kan endast redigera produkten när du är online.
+          </h4>
+          <Link to={`/backoffice`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="button"
+              className="my-3 mx-1 btn btn-primary float-end"
+            >
+              Tillbaka
+            </button>
+          </Link>
         </Col>
       </Row>
     </Container>
@@ -79,6 +102,8 @@ export default function ProductDetail() {
     <Container
       className="product-edit"
       style={{
+        paddingTop: "50px",
+        marginBottom: "50px",
         backgroundColor: "rgb(222, 226, 226)",
         borderRadius: "10px",
       }}
@@ -96,22 +121,57 @@ export default function ProductDetail() {
               height="240"
               style={{ display: !l.captureMode ? "block" : "none" }}
             ></canvas>
-            <button className="btn btn-primary mt-3 mb-5" onClick={takeImage}>
-              Capture
+
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              className="btn btn-primary mt-3 mb-5"
+              onClick={takeImage}
+            >
+              Ta bild
             </button>
-            <div id="location-display"></div>
-            <input type="file" accept="image/*" id="image-picker" />
+            <input
+              type="file"
+              onChange={function (e) {
+                pickImage(e, l), getGeolocation();
+              }}
+              accept="image/*"
+              id="image-picker"
+            />
+            <div
+              style={{
+                marginLeft: "35%",
+              }}
+              id="location-display"
+            ></div>
           </Col>
         </Row>
       ) : (
         <Row>
           <Col>
-            <img src={`/images/products/${id}.jpg`} />
+            <img
+              style={{
+                marginLeft: "35%",
+              }}
+              src={l.productImage}
+            />
+
             <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                marginLeft: "35%",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
               className="btn btn-primary mt-3 mb-5"
               onClick={() => (l.replaceImage = true)}
             >
-              Replace image
+              Byt bild
             </button>
           </Col>
         </Row>
@@ -170,46 +230,49 @@ export default function ProductDetail() {
           </label>
         </Col>
       </Row>
-      <button
-        style={{
-          backgroundColor: "rgba(102, 10, 59, 1)",
-          borderRadius: "10px",
-          border: "none",
-          color: "white",
-        }}
-        type="button"
-        onClick={routeBack}
-        className="my-4 mx-1 btn float-end"
-      >
-        Tillbaka
-      </button>
+      <Row lg={6}>
+        <button
+          style={{
+            backgroundColor: "rgba(102, 10, 59, 1)",
+            borderRadius: "10px",
+            border: "none",
+            color: "white",
+          }}
+          type="button"
+          onClick={routeBack}
+          className="my-4 mx-1 btn float-end"
+        >
+          Tillbaka
+        </button>
 
-      <button
-        style={{
-          backgroundColor: "rgba(102, 10, 59, 1)",
-          borderRadius: "10px",
-          border: "none",
-          color: "white",
-        }}
-        type="button"
-        onClick={save}
-        className="my-4 mx-1 btn  float-end"
-      >
-        Spara
-      </button>
-      <button
-        style={{
-          backgroundColor: "rgba(102, 10, 59, 1)",
-          borderRadius: "10px",
-          border: "none",
-          color: "white",
-        }}
-        type="button"
-        onClick={() => Tabort()}
-        className="my-4 mx-1 btn float-end"
-      >
-        Radera
-      </button>
+        <button
+          style={{
+            backgroundColor: "rgba(102, 10, 59, 1)",
+            borderRadius: "10px",
+            border: "none",
+            color: "white",
+          }}
+          type="button"
+          onClick={save}
+          className="my-4 mx-1 btn  float-end"
+        >
+          Spara
+        </button>
+
+        <button
+          style={{
+            backgroundColor: "rgba(102, 10, 59, 1)",
+            borderRadius: "10px",
+            border: "none",
+            color: "white",
+          }}
+          type="button"
+          onClick={() => Tabort()}
+          className="my-4 mx-1 btn float-end"
+        >
+          Radera
+        </button>
+      </Row>
     </Container>
   );
 }

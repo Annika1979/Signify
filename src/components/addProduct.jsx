@@ -1,18 +1,30 @@
 import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import {
+  initializeMedia,
+  captureImage,
+  uploadImage,
+  getGeolocation,
+  pickImage,
+} from "../utilities/imageCapture";
 
 //import UploadPicture from "./Picture";
 
 import CategoryAdd from "../utilities/addNewCategory";
 
 import { factory } from "../utilities/FetchHelper";
-import React from "react";
+import React, { useEffect } from "react";
 
 const { Product } = factory;
 
 export default function AddProduct() {
+  useEffect(() => {
+    initializeMedia();
+  }, []);
+
   let s = useStates("main");
+  let { id } = useParams();
   let navigate = useNavigate();
 
   // lokalt state för denna komponent
@@ -24,14 +36,29 @@ export default function AddProduct() {
       categoryId: "",
     }),
   });
+
+  let l = useStates({
+    captureMode: true,
+    replaceImage: false,
+    productImage: `/images/products/${id}}.jpg`,
+  });
+
   console.log(state.newProduct);
   async function save() {
     // Save to db
     await state.newProduct.save();
+    l.replaceImage && (await uploadImage(state.newProduct.id));
+    console.log(state.newProduct.id);
     // Navigate to detail page
 
     alert("Saved");
     // navigate(`/backoffice/`);
+  }
+
+  function takeImage() {
+    captureImage();
+    getGeolocation();
+    l.captureMode = false;
   }
 
   function routeBack() {
@@ -45,21 +72,92 @@ export default function AddProduct() {
       {/* Offline */}
       <Row>
         <Col>
-          <h4>Du är offline! Du kan endast ändra när du är online.</h4>
+          <h4>
+            Du är offline! Du kan endast Lägga till en produkt när du är online.
+          </h4>
+          <Link to={`/backoffice`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="button"
+              className="my-3 mx-1 btn btn-primary float-end"
+            >
+              Tillbaka
+            </button>
+          </Link>
         </Col>
       </Row>
     </Container>
   ) : (
     <Container
+      className="product-edit p-3 mh-50 mb-3"
       style={{
         backgroundColor: "white",
         borderRadius: "10px",
         maxWidth: "85%",
-        height: "400px",
+        height: "500px",
       }}
-      className=" p-3 mh-50 mb-3"
     >
       {/* Online */}
+
+      {l.replaceImage ? (
+        <Row>
+          <Col>
+            <video
+              style={{ display: l.captureMode ? "block" : "none" }}
+              autoPlay
+            ></video>
+            <canvas
+              width="320"
+              height="240"
+              style={{ display: !l.captureMode ? "block" : "none" }}
+            ></canvas>
+
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              className="btn btn-primary mt-3 mb-5"
+              onClick={takeImage}
+            >
+              Ta bild
+            </button>
+            <input
+              type="file"
+              onChange={function (e) {
+                pickImage(e, l), getGeolocation();
+              }}
+              accept="image/*"
+              id="image-picker"
+            />
+            <div id="location-display"></div>
+          </Col>
+        </Row>
+      ) : (
+        <Row>
+          <Col>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              className="btn btn-primary mt-3 mb-5"
+              onClick={() => (l.replaceImage = true)}
+            >
+              Lägg till bild
+            </button>
+          </Col>
+        </Row>
+      )}
 
       <Row>
         <Col>

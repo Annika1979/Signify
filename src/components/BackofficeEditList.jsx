@@ -3,7 +3,34 @@ import { useNavigate, Link } from "react-router-dom";
 import React from "react";
 
 export default function BackofficeEditList() {
-  return (
+  return !navigator.onLine ? (
+    <Container>
+      <Row>
+        <Col className="mx-auto d-grid gap-2 d-md-flex justify-content-center ">
+          <h4>
+            Du kan tyvärr inte göra några ändrigar just nu. Försök igen när du
+            är online igen.
+          </h4>
+          <Link to={`/backoffice`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+                width: "145px",
+                height: "145px",
+              }}
+              type="button"
+              className="my-3 mx-1 "
+            >
+              Tillbaka
+            </button>
+          </Link>
+        </Col>
+      </Row>
+    </Container>
+  ) : (
     <Container
       style={{
         backgroundColor: "white",
