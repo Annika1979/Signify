@@ -1,9 +1,11 @@
 import { useStates } from "./utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import CategorySelect from "./utilities/CategorySelect";
+import CategorySelect from './utilities/CategorySelect';
+import { initializeMedia, captureImage, uploadImage, getGeolocation, pickImage} from './utilities/imageCapture';
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { initializeMedia, captureImage, uploadImage, getGeolocation } from './utilities/imageCapture';
+
 
 export default function ProductDetail() {
 
@@ -17,12 +19,13 @@ export default function ProductDetail() {
   // a local state only for this component
   let l = useStates({
     captureMode: true,
-    replaceImage: false
+    replaceImage: false,
+    productImage: `/images/products/${id}.jpg`
   });
 
   // initialize media (start talking to camera)
   // when the component loads
-  useStates(() => {
+  useEffect(() => {
     initializeMedia();
   }, []);
 
@@ -98,21 +101,41 @@ export default function ProductDetail() {
     <Container
       className="product-edit"
       style={{
+        paddingTop:"50px",
+        marginBottom:"50px",
         backgroundColor: "rgb(222, 226, 226)",
         borderRadius: "10px",
       }}
     >
       {/* Online */}
       {l.replaceImage ?
-        <Row><Col>
-          <video style={{ display: l.captureMode ? 'block' : 'none', }} autoPlay></video>
+        <Row><Col >
+          <video   style={{ display: l.captureMode ? 'block' : 'none',}} autoPlay></video>
           <canvas width="320" height="240" style={{ display: !l.captureMode ? 'block' : 'none' }}></canvas>
-          <button className="btn btn-primary mt-3 mb-5" onClick={takeImage}>Capture</button>
-          <div id="location-display"></div>
-          <input type="file" accept="image/*" id="image-picker" />
+
+          <button style={{
+                
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }} className="btn btn-primary mt-3 mb-5" onClick={takeImage}>Ta bild</button>
+<input type="file" onChange={function (e){pickImage(e,l), getGeolocation()}} accept="image/*" id="image-picker"/>
+          <div  style={{
+                marginLeft:"35%"}} id="location-display"></div>
+          
         </Col></Row> : <Row><Col>
-          <img src={`/images/products/${id}.jpg`} />
-          <button className="btn btn-primary mt-3 mb-5" onClick={() => l.replaceImage = true}>Replace image</button>
+          <img  style={{
+                marginLeft:"35%"}} src={l.productImage} />
+
+          <button  style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                marginLeft:"35%",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }} className="btn btn-primary mt-3 mb-5" onClick={() => l.replaceImage = true}>Byt bild</button>
+
         </Col></Row>}
       <Row>
         <Col>
@@ -168,6 +191,8 @@ export default function ProductDetail() {
           </label>
         </Col>
       </Row>
+      <Row  lg={6} >
+    
       <button
         style={{
           backgroundColor: "rgba(102, 10, 59, 1)",
@@ -181,7 +206,7 @@ export default function ProductDetail() {
       >
         Tillbaka
       </button>
-
+     
       <button
         style={{
           backgroundColor: "rgba(102, 10, 59, 1)",
@@ -195,6 +220,8 @@ export default function ProductDetail() {
       >
         Spara
       </button>
+      
+      
       <button
         style={{
           backgroundColor: "rgba(102, 10, 59, 1)",
@@ -208,6 +235,8 @@ export default function ProductDetail() {
       >
         Radera
       </button>
+     
+      </Row>
     </Container>
   );
 }
