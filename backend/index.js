@@ -4,15 +4,15 @@ const restApi = require('./rest-api');
 const path = require('path');
 const port = 4000;
 const dbPath = '../database/db.sqlite3';
+const imageUpload = require('./image-upload');
 
-const formidable = require('formidable')
-const fs = require('fs')
 
 
 async function start() {
   const db = await bestSqlite.connect(dbPath);
   const app = express();
   app.use(express.json());
+  imageUpload(app);
   restApi(app, db);
   serveDistFolder(app);
   app.use(express.static(__dirname + '../public'))
