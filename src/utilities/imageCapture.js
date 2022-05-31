@@ -60,20 +60,16 @@ export async function initializeMedia() {
   videoPlayer.style.display = 'block';
   canvasElement.style.display = 'none';
 }
-
+ 
 export function captureImage() {
 
   let videoPlayer = document.querySelector('.product-edit video');
   let canvasElement = document.querySelector('.product-edit canvas');
 
-  let imagePicker = document.querySelector('#image-picker');
+  
 
 
-imagePicker.addEventListener('change', (event) => {
-    picture = event.target.files[0];
-   
- 
-  });
+
 
   // take the image from the videoplayer and add to the canvas
   // to enable converting the image to a blob (file)
@@ -91,18 +87,16 @@ imagePicker.addEventListener('change', (event) => {
   picture = dataURItoBlob(canvasElement.toDataURL('image/jpeg', 0.8));
 }
 
-/*export async function pickImage(){
+export async function pickImage(event,l){
 
-let imagePicker = document.querySelector('#image-picker');
-
-
-imagePicker.addEventListener('change', (event) => {
+  
     picture = event.target.files[0];
-   
+  l.productImage=picture.fileName; 
+  
+  console.log(picture);
+  
  
-  });
- 
-}*/
+}
 export async function getGeolocation() {
     let locationDisplay = document.querySelector('#location-display');
     locationDisplay.innerHTML = ''
