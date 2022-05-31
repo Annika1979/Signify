@@ -30,8 +30,10 @@ export class FetchHelper {
     })).json();
     // In this particular REST-api lastInsertRowid is returned
     // on posts and is the id of the newly created item
-    if (method === 'POST' && result.lastInsertRowid) {
-      this.id = result.lastInsertRowid;
+  
+    if (method === 'POST' && result.lastInsertRowId) {
+     
+      this.id = result.lastInsertRowId;
     }
     // in this particular REST-api the property _errror
     // signals that things have gone wrong

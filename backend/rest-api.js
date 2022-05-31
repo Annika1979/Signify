@@ -51,6 +51,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
       `);
     });
 
+
     let putAndPatch = (req, res) => {
       runQuery(name, req, res, { ...req.body, ...req.params }, `
         UPDATE ${name}
@@ -76,6 +77,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
     res.json({ _error: 'No such route!' });
   });
 
+
   app.use((error, req, res, next) => {
     if (error) {
       let result = {
@@ -87,5 +89,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
       next();
     }
   });
+
+ 
 
 }

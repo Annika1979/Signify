@@ -1,6 +1,7 @@
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { factory } from "../utilities/FetchHelper"
+import { factory } from "../utilities/FetchHelper";
+import { useState } from "react";
 import React from "react";
 import { useStates } from "../utilities/states";
 import { useNavigate } from "react-router-dom";
@@ -8,8 +9,7 @@ import { empty } from "../utilities/shoppingCartLogic";
 
 
 
-const {Order} = factory;
-
+const { Order } = factory;
 
 export default function PersonalInfo() {
   let s = useStates("main");
@@ -44,7 +44,7 @@ export default function PersonalInfo() {
     
   async function save() {
     // Save to db
-    await state.newOrder.save()
+    await state.newOrder.save();
     // Navigate to detail page
     
     alert("Tack för din order!")
@@ -58,13 +58,18 @@ export default function PersonalInfo() {
 
      
               
-  return (
+ 
+
+   
+
+
+  return navigator.onLine ?
     <Container
       style={{
         width: "50rem",
         margin: "auto",
         padding: "4rem",
-        backgroundColor: "lightgray",
+        backgroundColor: "#fff",
       }}
     >
       <Form onSubmit={function (e) { e.preventDefault(); save(); empty();routeBack()}}>
@@ -102,17 +107,67 @@ export default function PersonalInfo() {
             <Form.Control required type="email" placeholder="Emailadress"  { ...state.newOrder.bind("email")} />
           </Form.Group>
         </Row>
-         
-        
-          <Button  variant="primary" type="submit"  >
-            Slutför Köp
-          </Button>
-          
-          <Button variant="primary" onClick={routeBack} >
-            tillbaka
-          </Button>
+    
        
+        {navigator.onLine ? (
+          <Row>
+            <Col>
+            <Button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="submit"
+             
+            >
+              Slutför Köp
+          </Button>
+            </Col>
+            
+            <Col>
+           <Button onClick={routeBack2}
+                style={{
+                  backgroundColor: "rgba(102, 10, 59, 1)",
+                  borderRadius: "10px",
+                  border: "none",
+                  color: "white",
+                }}
+                type="button"
+                className="my-3 mx-1 btn btn-primary float-end"
+              >
+                Tillbaka
+              </Button>
+              </Col>
+            </Row>
+          
+         
+        ) : (null)}
       </Form>
     </Container>
-  );
-}
+    : (
+      <Container >
+        <Row>
+          <Col>
+            <h4>Du kan tyvärr inte avsluta ditt köp just nu, försök igen när du är onilne.</h4>
+           
+              <Button onClick={routeBack2}
+                style={{
+                  backgroundColor: "rgba(102, 10, 59, 1)",
+                  borderRadius: "10px",
+                  border: "none",
+                  color: "white",
+                }}
+                type="button"
+                className="my-3 mx-1 btn btn-primary float-end"
+              >
+                Tillbaka
+              </Button>
+            
+          </Col>
+        </Row>
+      </Container>
+    )
+
+};
