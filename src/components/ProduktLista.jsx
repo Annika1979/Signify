@@ -80,7 +80,7 @@ export default function ProduktLista() {
           .filter(
             (product) =>
               s.chosenCategoryId === 0 /*all*/ ||
-              s.chosenCategoryId === product.categoryId
+              +s.chosenCategoryId === product.categoryId
           )
           .map(({ id, name, description, price }) => (
             <Card
