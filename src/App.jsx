@@ -76,7 +76,7 @@ export default function App() {
         <Route path="/product-detail/:id" element={<ProductDetail />} />
         <Route path="/backoffice/:id" element={<ProductEdit />} />
       </Routes>
-    {/*<Footer />*/}
+   <Footer />
     </Router>
   );
 }
