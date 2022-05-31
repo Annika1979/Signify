@@ -1,11 +1,12 @@
 import { useStates } from "./utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import CategorySelect from './utilities/CategorySelect';
-import { initializeMedia, captureImage, uploadImage, getGeolocation} from './utilities/imageCapture';
+import CategorySelect from "./utilities/CategorySelect";
+import { Link } from "react-router-dom";
+import { initializeMedia, captureImage, uploadImage, getGeolocation } from './utilities/imageCapture';
 
 export default function ProductDetail() {
- 
+
 
 
 
@@ -36,10 +37,10 @@ export default function ProductDetail() {
     await product.save();
     // Upload image if the image should be replaced
     l.replaceImage && await uploadImage(id);
-   
+
     navigate(`/backoffice/`);
   }
-   
+
   function takeImage() {
     captureImage();
     getGeolocation();
@@ -72,13 +73,28 @@ export default function ProductDetail() {
       {/* Offline */}
       <Row>
         <Col>
-          <h4>Du är offline! Du kan endast ändra när du är online.</h4>
+          <h4>Du är offline! Du kan endast redigera produkten när du är online.</h4>
+          <Link to={`/backoffice`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="button"
+              className="my-3 mx-1 btn btn-primary float-end"
+            >
+              Tillbaka
+            </button>
+          </Link>
+
         </Col>
       </Row>
     </Container>
   ) : (
-    <Container 
-    className="product-edit"
+    <Container
+      className="product-edit"
       style={{
         backgroundColor: "rgb(222, 226, 226)",
         borderRadius: "10px",
@@ -87,11 +103,11 @@ export default function ProductDetail() {
       {/* Online */}
       {l.replaceImage ?
         <Row><Col>
-          <video style={{ display: l.captureMode ? 'block' : 'none',}} autoPlay></video>
+          <video style={{ display: l.captureMode ? 'block' : 'none', }} autoPlay></video>
           <canvas width="320" height="240" style={{ display: !l.captureMode ? 'block' : 'none' }}></canvas>
           <button className="btn btn-primary mt-3 mb-5" onClick={takeImage}>Capture</button>
           <div id="location-display"></div>
-          <input type="file" accept="image/*" id="image-picker"/>
+          <input type="file" accept="image/*" id="image-picker" />
         </Col></Row> : <Row><Col>
           <img src={`/images/products/${id}.jpg`} />
           <button className="btn btn-primary mt-3 mb-5" onClick={() => l.replaceImage = true}>Replace image</button>

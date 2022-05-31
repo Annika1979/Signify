@@ -108,23 +108,28 @@ export default function ShoppingCart() {
                 Tillbaka
               </button>
             </Link>
-            <Link
-              className="float-end text-decoration-none"
-              to={`/PersonalInfo`}
-            >
-              <button
-                style={{
-                  backgroundColor: "rgba(102, 10, 59, 1)",
-                  borderRadius: "10px",
-                  border: "none",
-                  color: "white",
-                }}
-                type="button"
-                className="mb-5 btn btn-primary float-end me-3"
+            {navigator.onLine ? (
+              <Link
+                className="float-end text-decoration-none"
+                to={`/PersonalInfo`}
               >
-                Gå till betalning
-              </button>
-            </Link>
+                <button
+                  style={{
+                    backgroundColor: "rgba(102, 10, 59, 1)",
+                    borderRadius: "10px",
+                    border: "none",
+                    color: "white",
+                  }}
+                  type="button"
+                  className="mb-5 btn btn-primary float-end me-3"
+                >
+                  Gå till betalning
+                </button>
+              </Link>
+
+            ) : (
+              null
+            )}
 
             {s.cartContents.length ? (
               <button
