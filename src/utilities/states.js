@@ -52,5 +52,7 @@ function bind(obj, name, value = obj[name], altValue) {
       t.type === 'checkbox' ?
         obj[name] = t.checked ? value : altValue :
         obj[name] = isNaN(+t.value) ? t.value : +t.value
+   
   }
 }
+

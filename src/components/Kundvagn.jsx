@@ -134,7 +134,7 @@ export default function ShoppingCart() {
               Gå till betalning
             </button>
           </Link>
-           )
+           
           {s.cartContents.length ? (
             <button
               style={{
