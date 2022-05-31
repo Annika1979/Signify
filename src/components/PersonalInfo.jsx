@@ -18,7 +18,10 @@ export default function PersonalInfo() {
     function routeBack(){
     navigate('/Kundvagn')
   }
-   
+    function routeBack2(){
+    navigate('/Produktlista')
+  }
+
 
    let state = useStates({
      newOrder: new Order({
@@ -48,7 +51,7 @@ export default function PersonalInfo() {
     // navigate(`/backoffice/`);
   }
   
-  console.log(s.cartContents)
+ 
   
 
   
