@@ -1,52 +1,47 @@
 import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { factory } from "../utilities/FetchHelper"
-import React from 'react'
-import CategoryAdd from '../utilities/addNewCategory';
-
-
+import { factory } from "../utilities/FetchHelper";
+import React from "react";
+import CategoryAdd from "../utilities/addNewCategory";
 
 const { Categorie: Category } = factory;
 
 export default function CategoryEdit() {
-
-
-
-
-  let s = useStates("main")
+  let s = useStates("main");
   let navigate = useNavigate();
 
   // lokalt state för denna komponent
   let state = useStates({
     newCategory: new Category({
-      id: 's.categories.id',
-      name: ''
-
-    })
+      id: "s.categories.id",
+      name: "",
+    }),
   });
-  console.log(state.newCategory)
+  console.log(state.newCategory);
   async function save() {
     // Save to db
-    await state.newCategory.save()
+    await state.newCategory.save();
     // Navigate to detail page
 
-    alert("Kategori ändrad!")
+    alert("Kategori ändrad!");
     // navigate(`/backoffice/`);
   }
 
   async function Tabort() {
-
     await state.newCategory.Tabort();
 
     // Navigate to detail page
 
-    alert("Kategori Raderad!")
+    alert("Kategori Raderad!");
 
+    // Navigate to detail page
+
+    alert("Kategori Raderad!");
   }
 
   function routeBack() {
-    navigate('/backoffice/Edit')
+    navigate("/backoffice/Edit");
   }
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
@@ -56,7 +51,10 @@ export default function CategoryEdit() {
       {/* Offline */}
       <Row>
         <Col>
-          <h4>Du är offline! Du kan endast redigera till en kategori när du är online.</h4>
+          <h4>
+            Du är offline! Du kan endast redigera till en kategori när du är
+            online.
+          </h4>
           <Link to={`/backoffice`}>
             <button
               style={{
@@ -75,21 +73,32 @@ export default function CategoryEdit() {
       </Row>
     </Container>
   ) : (
-    <Container>
+    <Container
+      style={{
+        backgroundColor: "white",
+        borderRadius: "10px",
+        maxWidth: "85%",
+        height: "200px",
+      }}
+      className=" p-3 mh-50"
+    >
       {/* Online */}
       <CategoryAdd bindTo={[state.newCategory, "id"]} />
       <Row>
         <Col>
           <label className="mt-3">
             Nytt namn på kategori
-            <input className="form-control" {...state.newCategory.bind("name")} />
+            <input
+              className="form-control"
+              {...state.newCategory.bind("name")}
+            />
           </label>
         </Col>
       </Row>
 
       <button
         style={{
-          backgroundColor: "purple",
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",
@@ -103,7 +112,7 @@ export default function CategoryEdit() {
 
       <button
         style={{
-          backgroundColor: "purple",
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",
@@ -117,10 +126,9 @@ export default function CategoryEdit() {
         Uppdatera
       </button>
 
-
       <button
         style={{
-          backgroundColor: "purple",
+          backgroundColor: "rgba(102, 10, 59, 1)",
           borderRadius: "10px",
           border: "none",
           color: "white",
