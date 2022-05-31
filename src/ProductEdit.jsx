@@ -4,9 +4,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from './utilities/CategorySelect';
 import { initializeMedia, captureImage, uploadImage, getGeolocation, pickImage} from './utilities/imageCapture';
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 
 export default function ProductDetail() {
- 
+
 
 
 
@@ -38,11 +40,11 @@ export default function ProductDetail() {
     await product.save();
     // Upload image if the image should be replaced
     l.replaceImage && await uploadImage(id);
-   
+
     navigate(`/backoffice/`);
   }
-   
-   function takeImage() {
+
+  function takeImage() {
     captureImage();
     getGeolocation();
     l.captureMode = false;
@@ -70,17 +72,34 @@ export default function ProductDetail() {
   // console.log("navigator.onLine", navigator.onLine);
 
   return !navigator.onLine ? (
-    <Container>
+    <Container style={{
+      marginBottom: "100px"
+    }}>
       {/* Offline */}
       <Row>
         <Col>
-          <h4>Du är offline! Du kan endast ändra när du är online.</h4>
+          <h4>Du är offline! Du kan endast redigera produkten när du är online.</h4>
+          <Link to={`/backoffice`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="button"
+              className="my-3 mx-1 btn btn-primary float-end"
+            >
+              Tillbaka
+            </button>
+          </Link>
+
         </Col>
       </Row>
     </Container>
   ) : (
-    <Container 
-    className="product-edit"
+    <Container
+      className="product-edit"
       style={{
         paddingTop:"50px",
         marginBottom:"50px",

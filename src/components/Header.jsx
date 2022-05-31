@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import Sign from "/images/products/SigniFy.png";
 
 import { useStates } from "../utilities/states";
+import NetworkStatus from "../utilities/NetworkStatus";
 
 export default function Header() {
   // Detect React router change of location
@@ -48,6 +49,7 @@ export default function Header() {
                 {label}
               </Link>
             ))}
+            <NetworkStatus />
           </Nav>
         </Navbar.Collapse>
       </Container>

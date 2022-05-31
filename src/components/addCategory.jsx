@@ -1,6 +1,6 @@
 import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 
 import { factory } from "../utilities/FetchHelper"
@@ -11,31 +11,31 @@ import React from 'react'
 const { Categorie: Category } = factory;
 
 export default function AddCategory() {
-  
 
- 
-  
+
+
+
   let s = useStates("main")
   let navigate = useNavigate();
-  
+
   // lokalt state för denna komponent
   let state = useStates({
     newCategory: new Category({
       name: '',
-     
+
     })
   });
- console.log(state.newCategory)
+  console.log(state.newCategory)
   async function save() {
     // Save to db
     await state.newCategory.save()
     // Navigate to detail page
-    
+
     alert("Saved")
     // navigate(`/backoffice/`);
   }
-  
-  function routeBack(){
+
+  function routeBack() {
     navigate('/backoffice/Edit')
   }
   // Check if we are offline (in that case no editing available)
@@ -46,23 +46,37 @@ export default function AddCategory() {
       {/* Offline */}
       <Row>
         <Col>
-          <h4>Du är offline! Du kan endast ändra när du är online.</h4>
+          <h4>Du är offline! Du kan endast Lägga till en kategori när du är online.</h4>
+          <Link to={`/backoffice`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="button"
+              className="my-3 mx-1 btn btn-primary float-end"
+            >
+              Tillbaka
+            </button>
+          </Link>
         </Col>
       </Row>
     </Container>
   ) : (
     <Container>
       {/* Online */}
-      
+
       <Row>
         <Col>
           <label className="mt-3">
             Produkt:
-            <input className="form-control" { ...state.newCategory.bind("name")} />
+            <input className="form-control" {...state.newCategory.bind("name")} />
           </label>
         </Col>
       </Row>
-     
+
       <button
         style={{
           backgroundColor: "purple",

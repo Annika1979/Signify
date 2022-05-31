@@ -1,6 +1,6 @@
 import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { initializeMedia, captureImage, uploadImage, getGeolocation, pickImage} from '../utilities/imageCapture';
 
 //import UploadPicture from "./Picture";
@@ -26,7 +26,7 @@ export default function AddProduct() {
   let s = useStates("main")
   let { id } = useParams();
   let navigate = useNavigate();
-  
+
   // lokalt state för denna komponent
   let state = useStates({
     newProduct: new Product({
@@ -51,7 +51,7 @@ export default function AddProduct() {
     l.replaceImage && await uploadImage(state.newProduct.id);
     console.log(state.newProduct.id);
     // Navigate to detail page
-    
+
     alert("Saved")
     // navigate(`/backoffice/`);
   }
@@ -73,7 +73,21 @@ export default function AddProduct() {
       {/* Offline */}
       <Row>
         <Col>
-          <h4>Du är offline! Du kan endast ändra när du är online.</h4>
+          <h4>Du är offline! Du kan endast Lägga till en produkt när du är online.</h4>
+          <Link to={`/backoffice`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="button"
+              className="my-3 mx-1 btn btn-primary float-end"
+            >
+              Tillbaka
+            </button>
+          </Link>
         </Col>
       </Row>
     </Container>
@@ -114,7 +128,7 @@ export default function AddProduct() {
         <Col>
           <label className="mt-3">
             Produkt:
-            <input className="form-control" { ...state.newProduct.bind("name")} />
+            <input className="form-control" {...state.newProduct.bind("name")} />
           </label>
         </Col>
       </Row>
@@ -179,7 +193,7 @@ export default function AddProduct() {
         Spara
       </button>
 
-      
+
     </Container>
   );
 }
