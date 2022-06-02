@@ -37,6 +37,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
         WHERE id = $id
       `, true);
     });
+   
 
     if (db.views.includes(name)) {
       continue;
@@ -49,6 +50,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
         VALUES (${Object.keys(req.body).map(x => '$' + x)})
       `);
     });
+
 
     let putAndPatch = (req, res) => {
       runQuery(name, req, res, { ...req.body, ...req.params }, `
@@ -75,6 +77,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
     res.json({ _error: 'No such route!' });
   });
 
+
   app.use((error, req, res, next) => {
     if (error) {
       let result = {
@@ -86,5 +89,7 @@ module.exports = function setupRESTapi(app, databaseConnection) {
       next();
     }
   });
+
+ 
 
 }

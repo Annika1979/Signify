@@ -1,47 +1,58 @@
-import { useStates } from "./utilities/states";
+import { useStates } from "../utilities/states";
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import CategorySelect from "./utilities/CategorySelect";
 import {
   initializeMedia,
   captureImage,
   uploadImage,
   getGeolocation,
   pickImage,
-} from "./utilities/imageCapture";
-import { useEffect } from "react";
+} from "../utilities/imageCapture";
 
-export default function ProductDetail() {
-  let s = useStates("main");
-  let { id } = useParams();
-  let navigate = useNavigate();
+//import UploadPicture from "./Picture";
 
-  // a local state only for this component
-  let l = useStates({
-    captureMode: true,
-    replaceImage: false,
-    productImage: `/images/products/${id}.jpg`,
-  });
+import CategoryAdd from "../utilities/addNewCategory";
 
-  // initialize media (start talking to camera)
-  // when the component loads
+import { factory } from "../utilities/FetchHelper";
+import React, { useEffect } from "react";
+
+const { Product } = factory;
+
+export default function AddProduct() {
   useEffect(() => {
     initializeMedia();
   }, []);
 
-  let product = s.products.find((x) => x.id === +id);
-  if (!product) {
-    return null;
-  }
-  let { name, description, price } = product;
+  let s = useStates("main");
+  let { id } = useParams();
+  let navigate = useNavigate();
 
+  // lokalt state för denna komponent
+  let state = useStates({
+    newProduct: new Product({
+      name: "",
+      description: "",
+      price: "",
+      categoryId: "",
+    }),
+  });
+
+  let l = useStates({
+    captureMode: true,
+    replaceImage: false,
+    productImage: `/images/products/${id}}.jpg`,
+  });
+
+  console.log(state.newProduct);
   async function save() {
     // Save to db
-    await product.save();
-    // Upload image if the image should be replaced
-    l.replaceImage && (await uploadImage(id));
+    await state.newProduct.save();
+    l.replaceImage && (await uploadImage(state.newProduct.id));
+    console.log(state.newProduct.id);
+    // Navigate to detail page
 
-    navigate(`/backoffice/`);
+    alert("Saved");
+    // navigate(`/backoffice/`);
   }
 
   function takeImage() {
@@ -50,21 +61,8 @@ export default function ProductDetail() {
     l.captureMode = false;
   }
 
-  async function Tabort() {
-    await product.Tabort();
-
-    // Navigate to detail page
-
-    navigate(`/backoffice/`);
-  }
-
-  // Behöver uppdatera sidan efter att en produkt tagits bort. Tillfälligt lagt till en nödlösning med window reload.
-
-  async function find() {
-    await product.find();
-  }
   function routeBack() {
-    navigate("/backoffice");
+    navigate("/backoffice/Edit");
   }
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
@@ -75,7 +73,7 @@ export default function ProductDetail() {
       <Row>
         <Col>
           <h4>
-            Du är offline! Du kan endast redigera produkten när du är online.
+            Du är offline! Du kan endast Lägga till en produkt när du är online.
           </h4>
           <Link to={`/backoffice`}>
             <button
@@ -95,16 +93,17 @@ export default function ProductDetail() {
       </Row>
     </Container>
   ) : (
-    <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
+    <div className="d-flex flex-column " style={{ minHeight: "100vh" }}>
       <Container
+        className="product-edit p-3 mh-50 mb-3"
         style={{
-          paddingTop: "50px",
-          marginBottom: "50px",
-          backgroundColor: "#fff",
+          backgroundColor: "white",
           borderRadius: "10px",
+          height: "900px",
         }}
       >
         {/* Online */}
+
         {l.replaceImage ? (
           <Row className="mx-auto">
             <Col>
@@ -113,10 +112,9 @@ export default function ProductDetail() {
                 autoPlay
               ></video>
               <canvas
-                className=" mx-auto "
-                width="320"
-                height="240"
-                style={{ display: !l.captureMode ? "block" : "none" }}
+                style={{
+                  display: !l.captureMode ? "block" : "none",
+                }}
               ></canvas>
 
               <button
@@ -126,7 +124,7 @@ export default function ProductDetail() {
                   border: "none",
                   color: "white",
                 }}
-                className="btn  mt-3 mb-5"
+                className="btn btn-primary mt-3 mb-5"
                 onClick={takeImage}
               >
                 Ta bild
@@ -145,44 +143,30 @@ export default function ProductDetail() {
         ) : (
           <Row>
             <Col>
-              <img className="mx-auto" src={l.productImage} />
-
               <button
                 style={{
                   backgroundColor: "rgba(102, 10, 59, 1)",
-
                   borderRadius: "10px",
                   border: "none",
                   color: "white",
                 }}
-                className="btn  mt-3 mb-5   d-flex  justify-content-start"
+                className="btn btn-primary mt-3 mb-5"
                 onClick={() => (l.replaceImage = true)}
               >
-                Byt bild
+                Lägg till bild
               </button>
             </Col>
           </Row>
         )}
-        <Row>
-          <Col>
-            <h1>{name}</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <p>{description}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <p>Pris: {price}kr</p>
-          </Col>
-        </Row>
+
         <Row>
           <Col>
             <label className="mt-3">
               Produkt:
-              <input className="form-control" {...product.bind("name")} />
+              <input
+                className="form-control"
+                {...state.newProduct.bind("name")}
+              />
             </label>
           </Col>
         </Row>
@@ -192,7 +176,7 @@ export default function ProductDetail() {
               Beskrivning:
               <textarea
                 className="form-control"
-                {...product.bind("description")}
+                {...state.newProduct.bind("description")}
               />
             </label>
           </Col>
@@ -204,64 +188,48 @@ export default function ProductDetail() {
               <input
                 type="number"
                 className="form-control"
-                {...product.bind("price")}
+                {...state.newProduct.bind("price")}
               />
             </label>
           </Col>
         </Row>
         <Row className="mt-4">
           <Col>
-            <label className="mb-5">
+            <label>
               Kategori:&nbsp;
-              <CategorySelect bindTo={[product, "categoryId"]} />
+              <CategoryAdd bindTo={[state.newProduct, "categoryId"]} />
             </label>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <button
-              style={{
-                backgroundColor: "rgba(102, 10, 59, 1)",
-                borderRadius: "10px",
-                border: "none",
-                color: "white",
-              }}
-              type="button"
-              onClick={routeBack}
-              className="mb-5 btn btn-primary float-end me-3"
-            >
-              Tillbaka
-            </button>
+        <button
+          style={{
+            backgroundColor: "rgba(102, 10, 59, 1)",
+            borderRadius: "10px",
+            border: "none",
+            color: "white",
+          }}
+          type="button"
+          onClick={routeBack}
+          className="my-4 btn btn-primary float-end"
+        >
+          Tillbaka
+        </button>
 
-            <button
-              style={{
-                backgroundColor: "rgba(102, 10, 59, 1)",
-                borderRadius: "10px",
-                border: "none",
-                color: "white",
-              }}
-              type="button"
-              onClick={save}
-              className="mb-5 btn btn-primary float-end me-3 "
-            >
-              Spara
-            </button>
-
-            <button
-              style={{
-                backgroundColor: "rgba(102, 10, 59, 1)",
-                borderRadius: "10px",
-                border: "none",
-                color: "white",
-              }}
-              type="button"
-              onClick={() => Tabort()}
-              className="mb-5 btn btn-primary float-end me-3"
-            >
-              Radera
-            </button>
-          </Col>
-        </Row>
+        <button
+          style={{
+            backgroundColor: "rgba(102, 10, 59, 1)",
+            borderRadius: "10px",
+            border: "none",
+            color: "white",
+            marginRight: "5px",
+          }}
+          type="button"
+          onClick={save}
+          className="my-4 btn btn-primary float-end"
+          {...state.newProduct.bind("id")}
+        >
+          Spara
+        </button>
       </Container>
     </div>
   );
