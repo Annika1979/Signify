@@ -3,12 +3,14 @@ import { useNavigate, Link } from "react-router-dom";
 import React from "react";
 
 export default function BackofficeEditList() {
-  return !navigator.onLine ?
-    <Container >
-      {/* Offline */}
+  return !navigator.onLine ? (
+    <Container>
       <Row>
-        <Col>
-          <h4>Du kan tyvärr inte göra några ändrigar just nu. Försök igen när du är online igen.</h4>
+        <Col className="mx-auto d-grid gap-2 d-md-flex justify-content-center ">
+          <h4>
+            Du kan tyvärr inte göra några ändrigar just nu. Försök igen när du
+            är online igen.
+          </h4>
           <Link to={`/backoffice`}>
             <button
               style={{
@@ -16,9 +18,11 @@ export default function BackofficeEditList() {
                 borderRadius: "10px",
                 border: "none",
                 color: "white",
+                width: "145px",
+                height: "145px",
               }}
               type="button"
-              className="my-3 mx-1 btn btn-primary float-end"
+              className="my-3 mx-1 "
             >
               Tillbaka
             </button>
@@ -26,69 +30,84 @@ export default function BackofficeEditList() {
         </Col>
       </Row>
     </Container>
-    : (
-      <Container>
-        <Row>
-          <Col>
-            <Link to={`/backoffice`}>
-              <button
-                style={{
-                  backgroundColor: "rgba(102, 10, 59, 1)",
-                  borderRadius: "10px",
-                  border: "none",
-                  color: "white",
-                }}
-                type="button"
-                className="my-3 mx-1 btn btn-primary float-end"
-              >
-                Tillbaka
-              </button>
-            </Link>
+  ) : (
+    <Container
+      style={{
+        backgroundColor: "white",
+        borderRadius: "10px",
+        maxWidth: "85%",
+      }}
+      className="mb-3"
+    >
+      <Row>
+        <Col className="mx-auto d-grid gap-2 d-md-flex justify-content-center ">
+          <Link to={`/backoffice`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+                width: "145px",
+                height: "145px",
+              }}
+              type="button"
+              className="my-3 mx-1 "
+            >
+              Tillbaka
+            </button>
+          </Link>
 
-            <Link to={`/backoffice/lagg-till-produkt`}>
-              <button
-                style={{
-                  backgroundColor: "rgba(102, 10, 59, 1)",
-                  borderRadius: "10px",
-                  border: "none",
-                  color: "white",
-                }}
-                type="button"
-                className="my-3 mx-1 btn btn-primary float-end"
-              >
-                Lägg till produkt
-              </button>
-            </Link>
-            <Link to={`/backoffice/lagg-till-kategori`}>
-              <button
-                style={{
-                  backgroundColor: "rgba(102, 10, 59, 1)",
-                  borderRadius: "10px",
-                  border: "none",
-                  color: "white",
-                }}
-                type="button"
-                className="my-3 mx-1 btn btn-primary float-end"
-              >
-                Lägg till kategori
-              </button>
-            </Link>
-            <Link to={`/backoffice/andra-kategori`}>
-              <button
-                style={{
-                  backgroundColor: "rgba(102, 10, 59, 1)",
-                  borderRadius: "10px",
-                  border: "none",
-                  color: "white",
-                }}
-                type="button"
-                className="my-3 mx-1 btn btn-primary float-end"
-              >
-                Ändra kategori
-              </button>
-            </Link>
-          </Col>
-        </Row>
-      </Container>
-    );
+          <Link to={`/backoffice/lagg-till-produkt`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+                width: "145px",
+                height: "145px",
+              }}
+              type="button"
+              className="my-3 mx-1 "
+            >
+              Lägg till produkt
+            </button>
+          </Link>
+          <Link to={`/backoffice/lagg-till-kategori`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+                width: "145px",
+                height: "145px",
+              }}
+              type="button"
+              className="my-3 mx-1 "
+            >
+              Lägg till kategori
+            </button>
+          </Link>
+          <Link to={`/backoffice/andra-kategori`}>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+                width: "145px",
+                height: "145px",
+              }}
+              type="button"
+              className="my-3 mx-1 "
+            >
+              Ändra kategori
+            </button>
+          </Link>
+        </Col>
+      </Row>
+    </Container>
+  );
 }

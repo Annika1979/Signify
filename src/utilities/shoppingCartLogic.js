@@ -33,7 +33,7 @@ export function add(productToAdd, quantityToAdd = 1) {
     });
   } 
   save();
-  console.log(row, "row")
+  
 }
 
 export function remove(productToRemove) {
