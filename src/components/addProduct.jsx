@@ -93,143 +93,144 @@ export default function AddProduct() {
       </Row>
     </Container>
   ) : (
-    <Container
-      className="product-edit p-3 mh-50 mb-3"
-      style={{
-        backgroundColor: "white",
-        borderRadius: "10px",
-        maxWidth: "85%",
-        height: "500px",
-      }}
-    >
-      {/* Online */}
+    <div className="d-flex flex-column " style={{ minHeight: "100vh" }}>
+      <Container
+        className="product-edit p-3 mh-50 mb-3"
+        style={{
+          backgroundColor: "white",
+          borderRadius: "10px",
+          height: "900px",
+        }}
+      >
+        {/* Online */}
 
-      {l.replaceImage ? (
+        {l.replaceImage ? (
+          <Row className="mx-auto">
+            <Col>
+              <video
+                style={{ display: l.captureMode ? "block" : "none" }}
+                autoPlay
+              ></video>
+              <canvas
+                style={{
+                  display: !l.captureMode ? "block" : "none",
+                }}
+              ></canvas>
+
+              <button
+                style={{
+                  backgroundColor: "rgba(102, 10, 59, 1)",
+                  borderRadius: "10px",
+                  border: "none",
+                  color: "white",
+                }}
+                className="btn btn-primary mt-3 mb-5"
+                onClick={takeImage}
+              >
+                Ta bild
+              </button>
+              <input
+                type="file"
+                onChange={function (e) {
+                  pickImage(e, l), getGeolocation();
+                }}
+                accept="image/*"
+                id="image-picker"
+              />
+              <div id="location-display"></div>
+            </Col>
+          </Row>
+        ) : (
+          <Row>
+            <Col>
+              <button
+                style={{
+                  backgroundColor: "rgba(102, 10, 59, 1)",
+                  borderRadius: "10px",
+                  border: "none",
+                  color: "white",
+                }}
+                className="btn btn-primary mt-3 mb-5"
+                onClick={() => (l.replaceImage = true)}
+              >
+                Lägg till bild
+              </button>
+            </Col>
+          </Row>
+        )}
+
         <Row>
           <Col>
-            <video
-              style={{ display: l.captureMode ? "block" : "none" }}
-              autoPlay
-            ></video>
-            <canvas
-              width="320"
-              height="240"
-              style={{ display: !l.captureMode ? "block" : "none" }}
-            ></canvas>
-
-            <button
-              style={{
-                backgroundColor: "rgba(102, 10, 59, 1)",
-                borderRadius: "10px",
-                border: "none",
-                color: "white",
-              }}
-              className="btn btn-primary mt-3 mb-5"
-              onClick={takeImage}
-            >
-              Ta bild
-            </button>
-            <input
-              type="file"
-              onChange={function (e) {
-                pickImage(e, l), getGeolocation();
-              }}
-              accept="image/*"
-              id="image-picker"
-            />
-            <div id="location-display"></div>
+            <label className="mt-3">
+              Produkt:
+              <input
+                className="form-control"
+                {...state.newProduct.bind("name")}
+              />
+            </label>
           </Col>
         </Row>
-      ) : (
         <Row>
           <Col>
-            <button
-              style={{
-                backgroundColor: "rgba(102, 10, 59, 1)",
-                borderRadius: "10px",
-                border: "none",
-                color: "white",
-              }}
-              className="btn btn-primary mt-3 mb-5"
-              onClick={() => (l.replaceImage = true)}
-            >
-              Lägg till bild
-            </button>
+            <label className="mt-3">
+              Beskrivning:
+              <textarea
+                className="form-control"
+                {...state.newProduct.bind("description")}
+              />
+            </label>
           </Col>
         </Row>
-      )}
+        <Row>
+          <Col>
+            <label className="mt-3">
+              Pris:
+              <input
+                type="number"
+                className="form-control"
+                {...state.newProduct.bind("price")}
+              />
+            </label>
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          <Col>
+            <label>
+              Kategori:&nbsp;
+              <CategoryAdd bindTo={[state.newProduct, "categoryId"]} />
+            </label>
+          </Col>
+        </Row>
+        <button
+          style={{
+            backgroundColor: "rgba(102, 10, 59, 1)",
+            borderRadius: "10px",
+            border: "none",
+            color: "white",
+          }}
+          type="button"
+          onClick={routeBack}
+          className="my-4 btn btn-primary float-end"
+        >
+          Tillbaka
+        </button>
 
-      <Row>
-        <Col>
-          <label className="mt-3">
-            Produkt:
-            <input
-              className="form-control"
-              {...state.newProduct.bind("name")}
-            />
-          </label>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <label className="mt-3">
-            Beskrivning:
-            <textarea
-              className="form-control"
-              {...state.newProduct.bind("description")}
-            />
-          </label>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <label className="mt-3">
-            Pris:
-            <input
-              type="number"
-              className="form-control"
-              {...state.newProduct.bind("price")}
-            />
-          </label>
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        <Col>
-          <label>
-            Kategori:&nbsp;
-            <CategoryAdd bindTo={[state.newProduct, "categoryId"]} />
-          </label>
-        </Col>
-      </Row>
-      <button
-        style={{
-          backgroundColor: "rgba(102, 10, 59, 1)",
-          borderRadius: "10px",
-          border: "none",
-          color: "white",
-        }}
-        type="button"
-        onClick={routeBack}
-        className="my-4 btn btn-primary float-end"
-      >
-        Tillbaka
-      </button>
-
-      <button
-        style={{
-          backgroundColor: "rgba(102, 10, 59, 1)",
-          borderRadius: "10px",
-          border: "none",
-          color: "white",
-          marginRight: "5px",
-        }}
-        type="button"
-        onClick={save}
-        className="my-4 btn btn-primary float-end"
-        {...state.newProduct.bind("id")}
-      >
-        Spara
-      </button>
-    </Container>
+        <button
+          style={{
+            backgroundColor: "rgba(102, 10, 59, 1)",
+            borderRadius: "10px",
+            border: "none",
+            color: "white",
+            marginRight: "5px",
+          }}
+          type="button"
+          onClick={save}
+          className="my-4 btn btn-primary float-end"
+          {...state.newProduct.bind("id")}
+        >
+          Spara
+        </button>
+      </Container>
+    </div>
   );
 }

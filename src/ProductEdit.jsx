@@ -70,11 +70,7 @@ export default function ProductDetail() {
   // console.log("navigator.onLine", navigator.onLine);
 
   return !navigator.onLine ? (
-    <Container
-      style={{
-        marginBottom: "100px",
-      }}
-    >
+    <Container>
       {/* Offline */}
       <Row>
         <Col>
@@ -99,28 +95,143 @@ export default function ProductDetail() {
       </Row>
     </Container>
   ) : (
-    <Container
-      className="product-edit"
-      style={{
-        paddingTop: "50px",
-        marginBottom: "50px",
-        backgroundColor: "rgb(222, 226, 226)",
-        borderRadius: "10px",
-      }}
-    >
-      {/* Online */}
-      {l.replaceImage ? (
+    <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
+      <Container
+        style={{
+          paddingTop: "50px",
+          marginBottom: "50px",
+          backgroundColor: "#fff",
+          borderRadius: "10px",
+        }}
+      >
+        {/* Online */}
+        {l.replaceImage ? (
+          <Row className="mx-auto">
+            <Col>
+              <video
+                style={{ display: l.captureMode ? "block" : "none" }}
+                autoPlay
+              ></video>
+              <canvas
+                className=" mx-auto "
+                width="320"
+                height="240"
+                style={{ display: !l.captureMode ? "block" : "none" }}
+              ></canvas>
+
+              <button
+                style={{
+                  backgroundColor: "rgba(102, 10, 59, 1)",
+                  borderRadius: "10px",
+                  border: "none",
+                  color: "white",
+                }}
+                className="btn  mt-3 mb-5"
+                onClick={takeImage}
+              >
+                Ta bild
+              </button>
+              <input
+                type="file"
+                onChange={function (e) {
+                  pickImage(e, l), getGeolocation();
+                }}
+                accept="image/*"
+                id="image-picker"
+              />
+              <div id="location-display"></div>
+            </Col>
+          </Row>
+        ) : (
+          <Row>
+            <Col>
+              <img className="mx-auto" src={l.productImage} />
+
+              <button
+                style={{
+                  backgroundColor: "rgba(102, 10, 59, 1)",
+
+                  borderRadius: "10px",
+                  border: "none",
+                  color: "white",
+                }}
+                className="btn  mt-3 mb-5   d-flex  justify-content-start"
+                onClick={() => (l.replaceImage = true)}
+              >
+                Byt bild
+              </button>
+            </Col>
+          </Row>
+        )}
         <Row>
           <Col>
-            <video
-              style={{ display: l.captureMode ? "block" : "none" }}
-              autoPlay
-            ></video>
-            <canvas
-              width="320"
-              height="240"
-              style={{ display: !l.captureMode ? "block" : "none" }}
-            ></canvas>
+            <h1>{name}</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p>{description}</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p>Pris: {price}kr</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <label className="mt-3">
+              Produkt:
+              <input className="form-control" {...product.bind("name")} />
+            </label>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <label className="mt-3">
+              Beskrivning:
+              <textarea
+                className="form-control"
+                {...product.bind("description")}
+              />
+            </label>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <label className="mt-3">
+              Pris:
+              <input
+                type="number"
+                className="form-control"
+                {...product.bind("price")}
+              />
+            </label>
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          <Col>
+            <label className="mb-5">
+              Kategori:&nbsp;
+              <CategorySelect bindTo={[product, "categoryId"]} />
+            </label>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <button
+              style={{
+                backgroundColor: "rgba(102, 10, 59, 1)",
+                borderRadius: "10px",
+                border: "none",
+                color: "white",
+              }}
+              type="button"
+              onClick={routeBack}
+              className="mb-5 btn btn-primary float-end me-3"
+            >
+              Tillbaka
+            </button>
 
             <button
               style={{
@@ -129,150 +240,29 @@ export default function ProductDetail() {
                 border: "none",
                 color: "white",
               }}
-              className="btn btn-primary mt-3 mb-5"
-              onClick={takeImage}
+              type="button"
+              onClick={save}
+              className="mb-5 btn btn-primary float-end me-3 "
             >
-              Ta bild
+              Spara
             </button>
-            <input
-              type="file"
-              onChange={function (e) {
-                pickImage(e, l), getGeolocation();
-              }}
-              accept="image/*"
-              id="image-picker"
-            />
-            <div
-              style={{
-                marginLeft: "35%",
-              }}
-              id="location-display"
-            ></div>
-          </Col>
-        </Row>
-      ) : (
-        <Row>
-          <Col>
-            <img
-              style={{
-                marginLeft: "35%",
-              }}
-              src={l.productImage}
-            />
 
             <button
               style={{
                 backgroundColor: "rgba(102, 10, 59, 1)",
-                marginLeft: "35%",
                 borderRadius: "10px",
                 border: "none",
                 color: "white",
               }}
-              className="btn btn-primary mt-3 mb-5"
-              onClick={() => (l.replaceImage = true)}
+              type="button"
+              onClick={() => Tabort()}
+              className="mb-5 btn btn-primary float-end me-3"
             >
-              Byt bild
+              Radera
             </button>
           </Col>
         </Row>
-      )}
-      <Row>
-        <Col>
-          <h1>{name}</h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>{description}</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>Pris: {price}kr</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <label className="mt-3">
-            Produkt:
-            <input className="form-control" {...product.bind("name")} />
-          </label>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <label className="mt-3">
-            Beskrivning:
-            <textarea
-              className="form-control"
-              {...product.bind("description")}
-            />
-          </label>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <label className="mt-3">
-            Pris:
-            <input
-              type="number"
-              className="form-control"
-              {...product.bind("price")}
-            />
-          </label>
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        <Col>
-          <label className="mb-5">
-            Kategori:&nbsp;
-            <CategorySelect bindTo={[product, "categoryId"]} />
-          </label>
-        </Col>
-      </Row>
-      <Row lg={6}>
-        <button
-          style={{
-            backgroundColor: "rgba(102, 10, 59, 1)",
-            borderRadius: "10px",
-            border: "none",
-            color: "white",
-          }}
-          type="button"
-          onClick={routeBack}
-          className="my-4 mx-1 btn float-end"
-        >
-          Tillbaka
-        </button>
-
-        <button
-          style={{
-            backgroundColor: "rgba(102, 10, 59, 1)",
-            borderRadius: "10px",
-            border: "none",
-            color: "white",
-          }}
-          type="button"
-          onClick={save}
-          className="my-4 mx-1 btn  float-end"
-        >
-          Spara
-        </button>
-
-        <button
-          style={{
-            backgroundColor: "rgba(102, 10, 59, 1)",
-            borderRadius: "10px",
-            border: "none",
-            color: "white",
-          }}
-          type="button"
-          onClick={() => Tabort()}
-          className="my-4 mx-1 btn float-end"
-        >
-          Radera
-        </button>
-      </Row>
-    </Container>
+      </Container>
+    </div>
   );
 }

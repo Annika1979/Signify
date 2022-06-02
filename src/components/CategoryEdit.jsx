@@ -12,8 +12,6 @@ export default function CategoryEdit() {
   let s = useStates("main");
   let navigate = useNavigate();
 
-  
-
   // lokalt state för denna komponent
   let state = useStates({
     newCategory: new Category({
@@ -31,12 +29,12 @@ export default function CategoryEdit() {
     // navigate(`/backoffice/`);
   }
 
-   useEffect(() => {
+  useEffect(() => {
     (async () => {
       // get the categories from the db
 
       // get the products from the db
-     
+
       s.categories = await Category.find();
     })();
   }, [state.newCategory]);

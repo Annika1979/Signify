@@ -25,7 +25,7 @@ export default function ShoppingCart() {
           backgroundColor: "#fff",
           borderRadius: "10px",
         }}
-        className="shoppingCart "
+        className="shoppingCart mb-3"
       >
         <Row>
           <Col>
@@ -126,10 +126,7 @@ export default function ShoppingCart() {
                   Gå till betalning
                 </button>
               </Link>
-
-            ) : (
-              null
-            )}
+            ) : null}
 
             {s.cartContents.length ? (
               <button
