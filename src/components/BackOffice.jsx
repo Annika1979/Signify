@@ -68,8 +68,8 @@ export default function backOffice() {
         {s.products
           .filter(
             (product) =>
-              s.chosenCategoryId === 0 /*all*/ ||
-              s.chosenCategoryId === product.categoryId
+              +s.chosenCategoryId === 0 /*all*/ ||
+              +s.chosenCategoryId === product.categoryId
           )
           .map(({ id, name, description, price }) => (
             navigator.onLine ? (
@@ -112,7 +112,7 @@ export default function backOffice() {
                       type="button"
                       className=" my-2 mx-2 btn  position-absolute bottom-0 end-0"
                     >
-                      Ändra
+                      Redigera
                     </button>
                   </Link>
                 ) : (
